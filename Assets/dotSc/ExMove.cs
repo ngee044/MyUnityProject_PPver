@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class ExMove : MonoBehaviour {
 
-    int m_nID;
     public int InputCnt = 0;
-    public int Speed = 30;
-
-    public int ID
-    {
-        set { m_nID = value; }
-        get { return m_nID; }
-    }
+    public int Speed = 50;
 
     private void Awake()
     {
@@ -28,16 +21,19 @@ public class ExMove : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
+            transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+        }
+        else if(Input.GetKeyDown(KeyCode.S))
+        {
             transform.Translate(Vector3.back * Speed * Time.deltaTime);
-            InputCnt++;
-            Debug.Log("input Key W Down");
-
-            if (InputCnt >= 5)
-            {
-                InputCnt = 0;
-                transform.gameObject.SetActive(false);
-                Debug.Break();
-            }
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            transform.Translate(Vector3.left * Speed * Time.deltaTime);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.Translate(Vector3.right * Speed * Time.deltaTime);
         }
     }
 
