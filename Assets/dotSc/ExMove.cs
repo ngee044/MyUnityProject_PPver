@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour {
+public class ExMove : MonoBehaviour {
 
     int m_nID;
     public int InputCnt = 0;
