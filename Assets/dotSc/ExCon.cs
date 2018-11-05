@@ -7,13 +7,21 @@ public class ExCon : MonoBehaviour {
 
 	public int Speed = 0;
 	public int nCount = 0;
-	public bool Ischeck = true;
-	public bool IscheckAll = true;
-	public bool IscheckDic = true;
-	public bool IscheckList = true;
+	public int m_MaterialIndex = 0;
+
+	bool Ischeck = true;
+	bool IscheckAll = true;
+	bool IscheckDic = true;
+	bool IscheckList = true;
+	bool checkColor = true;
+
 	List<GameObject> m_List = new List<GameObject>();
 	Dictionary<int, GameObject> m_Dic = new Dictionary<int, GameObject>();
 	GameObject[] obj = new GameObject[5];
+
+	public List<Material> m_Material = new List<Material>();
+	public MeshRenderer MyCube;
+	public Queue<Material> m_qArrayMaterial = new Queue<Material>();
 
 	// Use this for initialization
 	private void Awake()
@@ -28,12 +36,22 @@ public class ExCon : MonoBehaviour {
 			obj[i] = CreateChartactor(name, i);
 			m_List.Add(obj[i]);
 			m_Dic.Add(i, obj[i]);
-			//			m_List.Add(CreateChartactor(name, i));
-			//			m_Dic.Add(i, CreateChartactor(name, i));
 		}
-
+		
 		StartCoroutine(ClearCoroutine());
 	}
+
+	void GetQueueArray()
+	{
+		if (m_qArrayMaterial.Count == 0)
+		{
+			for (int i = 0; i < m_Material.Count; i++)
+			{
+				m_qArrayMaterial.Enqueue(m_Material[i]);
+			}
+		}
+	}
+
     public GameObject CreateChartactor(string Name, int nid)
     {
         int IDnumber = nid;
@@ -67,6 +85,23 @@ public class ExCon : MonoBehaviour {
 		{
 			IscheckAll = false;
 		}
+		else if(Input.GetKeyDown(KeyCode.C))
+		{
+			checkColor = false;
+		}
+	}
+
+	void ColorChange()
+	{
+		if (checkColor == true) return;
+
+		if(m_MaterialIndex >= m_Material.Count)
+		{
+			m_MaterialIndex = 0;
+		}
+		MyCube.material = m_Material[m_MaterialIndex++];
+		//MyCube.transform.GetComponent<MeshRenderer>().material = m_Material[m_MaterialIndex++];	
+		//Debug.Log("change color " + transform.GetComponent<MeshRenderer>().material);
 	}
 
 	IEnumerator ClearCoroutine()
@@ -74,7 +109,9 @@ public class ExCon : MonoBehaviour {
 		while (true)
 		{
 			yield return new WaitForSeconds(1f); //1초후 실행
- //			ob.transform.Translate(Vector3.back * 100 * Time.deltaTime);
+			ColorChange();
+#if false
+			//ob.transform.Translate(Vector3.back * 100 * Time.deltaTime);
 			if (!IscheckDic)
 			{
 				if (!(m_Dic.Count == 0))
@@ -104,7 +141,8 @@ public class ExCon : MonoBehaviour {
 			{
 				Debug.Log("RemoveAll Succese");
 				break;
-			}         
+			}
+#endif
 		}
 	}
 }
