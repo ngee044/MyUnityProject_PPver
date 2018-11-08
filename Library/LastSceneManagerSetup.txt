@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/SampleScenes.unity
+- path: Assets/UnityChan/Scenes/Locomotion.unity
   isLoaded: 1
   isActive: 1

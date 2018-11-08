@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundScript : MonoBehaviour {
-	
-	public List<AudioClip> _BGMList = new List<AudioClip>();
-	public List<AudioClip> _EffectList = new List<AudioClip>();
 
+    public AudioClip Effect;
+    public AudioClip Bgm;
+    
 	private void Awake()
 	{
 		
