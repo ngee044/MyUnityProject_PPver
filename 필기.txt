@@ -8,3 +8,7 @@ system에서 manager를 인크루드해주고
 scenemanager.loadscene("");
 
 으로 불러준다
+
+Sound는 Table로 관리한다. 
+table의 csvreader는 공유함 filestream으로 파일을 읽어서
+관리(캐릭터 아이템 등) csv로 관리한다.
