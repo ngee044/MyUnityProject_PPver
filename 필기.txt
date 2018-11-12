@@ -12,3 +12,6 @@ scenemanager.loadscene("");
 Sound는 Table로 관리한다. 
 table의 csvreader는 공유함 filestream으로 파일을 읽어서
 관리(캐릭터 아이템 등) csv로 관리한다.
+
+Serializable
+파일을 저장할때 Serializable를 선언해야 저장이 된다.
