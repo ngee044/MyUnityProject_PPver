@@ -30,7 +30,6 @@ public class MyPracticeSc : MonoBehaviour
             //m_fEnd 값 초마다 이곳에 들어온다.
         }
 
-
         if (Input.GetKeyDown(KeyCode.A))
         {
             m_bActive = !m_bActive;

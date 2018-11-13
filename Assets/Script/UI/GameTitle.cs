@@ -11,36 +11,35 @@ public class GameTitle : MonoBehaviour {
     public List<Sprite> buttonSp = new List<Sprite>();
     public AudioSource titleBGM;
     public AudioSource clickeSound;
+    
     int m_nCount = 0;
 
     void Awake()
     {
-
+        titleBGM.Play();
     }
 
 	void Start () {
-        titleBGM.Play();
         StartCoroutine(KeyClickEvent());
     }
 	
     public void SpriteEevent()
     {
-        
+        StartButton.image.sprite = buttonSp[m_nCount];
+        ExitButton.image.sprite = buttonSp[m_nCount];
+        m_nCount++;
+
+        if (m_nCount == buttonSp.Count) m_nCount = 0;
     }
 
     IEnumerator KeyClickEvent()
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.5f); //1초후 실행
-            Debug.Log(buttonSp.Count);
-            Debug.Log("cnt = " + m_nCount);
-            StartButton.image.sprite = buttonSp[m_nCount];
-            ExitButton.image.sprite = buttonSp[m_nCount];
-            m_nCount++;
-
-            if (m_nCount == buttonSp.Count) m_nCount = 0;
+            yield return new WaitForSecondsRealtime(0.75f); //1초후 실행
+            SpriteEevent();
         }
+
     }
 
     public void on_StartButton_clicked()

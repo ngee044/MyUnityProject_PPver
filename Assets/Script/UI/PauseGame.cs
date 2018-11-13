@@ -6,6 +6,7 @@ using UnityEditor.SceneManagement;
 public class PauseGame : MonoBehaviour {
 
     public GameObject PauseUI;
+
     bool m_IsPause;
 
     // Use this for initialization
