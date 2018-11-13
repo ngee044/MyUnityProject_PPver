@@ -15,3 +15,8 @@ table의 csvreader는 공유함 filestream으로 파일을 읽어서
 
 Serializable
 파일을 저장할때 Serializable를 선언해야 저장이 된다.
+
+
+RawImage는 캐릭터 체력같은 ui를 표시할대 쓴다
+image는 메뉴와 같은 ui를 표시할때 쓴다.
+
