@@ -52,8 +52,15 @@ public class SoundMgr : MonoBehaviour {
 
         if(Input.GetMouseButtonUp(0))
         {
-            if(EffectClip)
-                EffectClip.Play();
+            ClickSound();
+        }
+    }
+
+    public void ClickSound()
+    {
+        if (EffectClip)
+        {
+            EffectClip.Play();
         }
     }
 
