@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour {
     float moveZ;
     float speedX = 95;
     float speedZ = 120;
-
+    
+    
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour {
         //if(Input.GetMouseButtonUp(1))
         {
             animator.Play("Jump", -1, 0);
+            CharacterMgr.GetInstance.GetPlayer.PlayerExp += 30;
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour {
         {
             animator.Play("DAMAGED01", -1, 0);
             this.transform.Translate(Vector3.back * 75 * Time.deltaTime);
+            CharacterMgr.GetInstance.GetPlayer.HP -= 20;
             Debug.Log("Collision");
         }
     }

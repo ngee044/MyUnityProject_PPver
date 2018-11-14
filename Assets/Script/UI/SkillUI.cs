@@ -15,23 +15,14 @@ public class SkillUI : MonoBehaviour {
     float _Etime;
     int i, j, n, k, o;
 
-    Sprite CutRender(Texture2D tex, int Row, int column)
-    {
-        Sprite image;
-       
-        Rect rect = new Rect( (tex.width/column * (j)), tex.height - (tex.height/Row * (i + 1)) ,82,82);
-        image.sprite = Sprite.Create(tex, rect, new Vector2(0, 0));
-        
-        return image.sprite;
-    }
+
 
     void RenderSprite()
     {
-        if (_IsInput == false) return;
+        // if (_IsInput == false) return;
 
-        img.sprite = CutRender(tex, 6, 6);
-        img2.sprite = CutRender(tex, 6, 6);
-
+        img.sprite = CutRenderHomeWorkVer(tex, 6, 6);
+        img2.sprite = CutRenderHomeWorkVer(texList[n], 6, 6);
     }
 
     // Use this for initialization
@@ -41,15 +32,87 @@ public class SkillUI : MonoBehaviour {
         j = 0;
         n = 0;
         k = 0;
-    }
-	
-	// Update is called once per frame
-	void Update () {
 
-        RenderSprite();
+        img.sprite = CutRenderHomeWorkVer(texList[n], 6, 6);
+        img2.sprite = CutRenderHomeWorkVer(tex, 6, 6);        
+    }
+
+    Sprite CutRenderHomeWorkVer(Texture2D _t, int Row, int column)
+    {
+        Sprite sprite;
+
+        float rectX = (_t.width / column) * (j);
+        float rectY = _t.height -( (_t.height / Row) * (i + 1) );
+        float rectWidth = _t.width / Row;
+        float rectHeight = _t.height / column;
+
+        Debug.Log("X = " + rectX);
+        Debug.Log("Y = " + rectY);
+        Debug.Log("Width = " + rectWidth);
+        Debug.Log("Height = " + rectHeight);
+
+        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
+        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
+
+        return sprite;
+    }
+
+    Sprite CutRenderValue64x64(Texture2D _t, int column, int Row)
+    {
+        Sprite sprite;
+        int x = 64, y = 64;
+
+        float rectX = x * (j);
+        float rectY = y - ((y / Row) * (i + 1));
+        float rectWidth = x / Row;
+        float rectHeight = y / column;
+
+        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
+        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
+
+        return sprite;
+    }
+
+    Sprite CutRenderValue82x82(Texture2D _t, int column, int Row)
+    {
+        Sprite sprite;
+        int x = 82, y = 82;
+
+        float rectX = x * (j);
+        float rectY = y - ((y / Row) * (i + 1));
+        float rectWidth = x / Row;
+        float rectHeight = y / column;
+
+        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
+        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
+
+        return sprite;
+    }
+
+    Sprite CutRenderValue128x128(Texture2D _t, int column, int Row)
+    {
+        Sprite sprite;
+        int x = 128, y = 128;
+
+        float rectX = x * (j);
+        float rectY = y - ((y / Row) * (i + 1));
+        float rectWidth = x / Row;
+        float rectHeight = y / column;
+
+        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
+        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
+
+        return sprite;
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+
 
         if (Input.GetKeyDown(KeyCode.N))
         {
+            RenderSprite();
             j++;
             if (j >= 6)
             {
@@ -60,13 +123,14 @@ public class SkillUI : MonoBehaviour {
         }
         else if(Input.GetKeyDown(KeyCode.B))
         {
+            RenderSprite();
             n++;
             if (n > 2) n = 0;
-
         }
         else if(Input.GetKeyDown(KeyCode.C))
         {
+            RenderSprite();
             i = j = n = k = 0;
         }
-	}
+    }
 }

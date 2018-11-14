@@ -2,33 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class Character : MonoBehaviour {
+public struct Status
+{
+    public string Name;
+    public int hpMax;
+    public int mpMax;
+    public int hp;
+    public int mp;
+    public int atk;
+    public int def;
+}
 
-    protected struct Status
+public partial class Character : MonoBehaviour
+{
+    protected Status status;
+
+    public string NAME
     {
-        public string Name;
-        public int hp;
-        public int mp;
-        public int atk;
-        public int def;
+        set { status.Name = value; }
+        get { return status.Name; }
+    }
+    public int HP
+    {
+        set { status.hp = value; }
+        get { return status.hp; }
+    }
+    public int MP
+    {
+        set { status.mp = value; }
+        get { return status.mp; }
+    }
+    public int HPMAX
+    {
+        set { status.hpMax = value; }
+        get { return status.hpMax; }
+    }
+    public int MPMAX
+    {
+        set { status.mpMax = value; }
+        get { return status.mpMax; }
+    }
+    public int ATK
+    {
+        set { status.atk = value; }
+        get { return status.atk; }
+    }
+    public int DEF
+    {
+        set { status.def = value; }
+        get { return status.def; }
     }
 
-    public List<Animator> ListAnimator = new List<Animator>();
 
-    void Awake()
-    {
-
-    }
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-
-
-	}
 }

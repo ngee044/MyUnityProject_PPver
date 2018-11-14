@@ -4,6 +4,21 @@ using UnityEngine;
 
 public partial class Character : MonoBehaviour {
 
+    void Awake()
+    {
+
+    }
+
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+
+    }
+
     public void AttackEvent()
     {
         Debug.Log("Attack Event");

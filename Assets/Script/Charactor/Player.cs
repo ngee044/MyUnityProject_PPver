@@ -4,32 +4,71 @@ using UnityEngine;
 
 public class Player : Character
 {
-    #region Player Struct
+    int _Lv;
+    int _nID;
+    int _Exp;
+    int _ExpMax;
 
-
-    struct Plyaer_stats
+    public int GetPlayerInfo(CharacterInfo type)
     {
-        Status p;
-        public int Lv;
-
-        public int nID;
-        public Plyaer_stats(int id, string Name, int hp, int mp, int atk, int def, int StartLv)
-        {
-            nID = id;
-            Lv = StartLv;
-            p.Name = Name;
-
-            p.hp = hp;
-            p.mp = mp;
-            p.atk = atk;
-            p.def = def;
-        }
+        return 0;
     }
-    #endregion
 
     public Player(int id, string Name, int hp, int mp, int atk, int def, int StartLv)
     {
-        Plyaer_stats player = new Plyaer_stats(id, Name, hp, mp, atk, def, StartLv);
-    }
+        Debug.Log("플레이어 클래스 진입");
+        PlayerID = id;
+        PlayerLevel = StartLv;
+        PlayerExp = 0;
+        PlayerExpMax = 100 * _Lv;
 
+        NAME = Name;
+        HP = HPMAX = hp;
+        MP = MPMAX = mp;
+        ATK = atk;
+        DEF = def;
+
+    }
+    ~Player()
+    {
+
+    }
+    public void PlayerLevelUp()
+    {
+        if (PlayerExp >= PlayerExpMax)
+        {
+            PlayerExp = PlayerExp - PlayerExpMax;
+            PlayerLevel++;
+            PlayerExpMax = 100 * PlayerLevel;
+
+            int GetNum = Random.Range(5, 16);
+            HPMAX += GetNum;
+            MPMAX += GetNum;
+            HP = HPMAX;
+            MP = MPMAX;
+            ATK += 2;
+            DEF ++;
+            PlayerLevelUp();
+        }
+    }
+    public int PlayerExpMax
+    {
+        set { _ExpMax = value; }
+        get { return _ExpMax; }
+    }
+    public int PlayerLevel
+    {
+        set { _Lv = value; }
+        get { return _Lv;  }
+    }
+    public int PlayerID
+    {
+        set { _nID = value; }
+        get { return _nID;  }
+    }
+    public int PlayerExp
+    {
+        set { _Exp = value; }
+        get { return _Exp;  }
+    }
 }
