@@ -11,6 +11,7 @@ public class GameTitle : MonoBehaviour {
     public List<Sprite> buttonSp = new List<Sprite>();
     public AudioSource titleBGM;
     public AudioSource clickeSound;
+    public InputField ConnectCode_LineEdit;
     
     int m_nCount = 0;
 
@@ -44,6 +45,13 @@ public class GameTitle : MonoBehaviour {
 
     public void on_StartButton_clicked()
     {
+        if((ConnectCode_LineEdit.text == "ngee044") == false)
+        {
+            string title = "접속 오류";
+            string msg = "올바른 접속 코드를 입력하세요.";
+            MessageBox.Show(title, msg, null);
+            return;
+        }
         clickeSound.Play();
         titleBGM.Stop();
         EditorSceneManager.LoadScene("MainGame");

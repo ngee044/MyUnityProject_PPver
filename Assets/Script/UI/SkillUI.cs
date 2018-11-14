@@ -5,17 +5,38 @@ using UnityEngine.UI;
 
 public class SkillUI : MonoBehaviour {
 
-
     public Texture2D tex;
     public List<Texture2D> texList;
     public Image img;
     public Image img2;
+    bool _IsInput;
 
     float _Stime;
     float _Etime;
     int i, j, n, k, o;
-	// Use this for initialization
-	void Start () {
+
+    Sprite CutRender(Texture2D tex, int Row, int column)
+    {
+        Sprite image;
+       
+        Rect rect = new Rect( (tex.width/column * (j)), tex.height - (tex.height/Row * (i + 1)) ,82,82);
+        image.sprite = Sprite.Create(tex, rect, new Vector2(0, 0));
+        
+        return image.sprite;
+    }
+
+    void RenderSprite()
+    {
+        if (_IsInput == false) return;
+
+        img.sprite = CutRender(tex, 6, 6);
+        img2.sprite = CutRender(tex, 6, 6);
+
+    }
+
+    // Use this for initialization
+    void Start () {
+        _IsInput = false;
         i = 0;
         j = 0;
         n = 0;
@@ -25,8 +46,7 @@ public class SkillUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        img2.sprite = Sprite.Create(tex, new Rect((82 * (j)), tex.height - (82 * (i+1)), 82, 82), new Vector2(0, 0));
-        img.sprite = Sprite.Create(texList[n], new Rect((82 * (j)), tex.height - (82 * (i + 1)), 82, 82), new Vector2(0, 0));
+        RenderSprite();
 
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -48,6 +68,5 @@ public class SkillUI : MonoBehaviour {
         {
             i = j = n = k = 0;
         }
-
 	}
 }
