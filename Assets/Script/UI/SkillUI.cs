@@ -9,32 +9,28 @@ public class SkillUI : MonoBehaviour {
     public List<Texture2D> texList;
     public Image img;
     public Image img2;
-    bool _IsInput;
 
     float _Stime;
     float _Etime;
     int i, j, n, k, o;
-
-
-
+    
     void RenderSprite()
     {
         // if (_IsInput == false) return;
 
-        img.sprite = CutRenderHomeWorkVer(tex, 6, 6);
-        img2.sprite = CutRenderHomeWorkVer(texList[n], 6, 6);
+        img.sprite = CutRenderValue82x82(texList[n], 6, 6);
+        img2.sprite = CutRenderValue82x82(tex, 6, 6);
     }
 
     // Use this for initialization
     void Start () {
-        _IsInput = false;
         i = 0;
         j = 0;
         n = 0;
         k = 0;
 
-        img.sprite = CutRenderHomeWorkVer(texList[n], 6, 6);
-        img2.sprite = CutRenderHomeWorkVer(tex, 6, 6);        
+        img.sprite = CutRenderValue82x82(texList[n], 6, 6);
+        img2.sprite = CutRenderValue82x82(tex, 6, 6);        
     }
 
     Sprite CutRenderHomeWorkVer(Texture2D _t, int Row, int column)
@@ -79,9 +75,9 @@ public class SkillUI : MonoBehaviour {
         int x = 82, y = 82;
 
         float rectX = x * (j);
-        float rectY = y - ((y / Row) * (i + 1));
-        float rectWidth = x / Row;
-        float rectHeight = y / column;
+        float rectY = _t.height - (y * (i + 1));
+        float rectWidth = x;
+        float rectHeight = y;
 
         Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
         sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
