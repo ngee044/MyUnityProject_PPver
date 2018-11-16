@@ -10,8 +10,9 @@ public class DropDownUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
-        for(int i = 0; i < 100; i ++)
+        Box.gameObject.SetActive(false);
+
+        for (int i = 0; i < 100; i ++)
         {
             options.Add("" + i);
         }
@@ -23,6 +24,11 @@ public class DropDownUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (Box.value == 1)
+            Debug.Log("1111111");
+        else if (Box.value == 2)
+            Debug.Log("2222222");
+
+
+    }
 }
