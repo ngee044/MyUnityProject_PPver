@@ -10,8 +10,6 @@ public class ViewItemObject : MonoBehaviour
     public Text Info;
     public Image Face;
     public GameObject confirm;
-
-
 }
 
 public class ScrollView : MonoBehaviour {
