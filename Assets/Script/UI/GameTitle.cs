@@ -54,7 +54,7 @@ public class GameTitle : MonoBehaviour {
         }
         clickeSound.Play();
         titleBGM.Stop();
-        EditorSceneManager.LoadScene("MainGame");
+        LoadingUi.LoadScene("MainGame");
 
     }
 
