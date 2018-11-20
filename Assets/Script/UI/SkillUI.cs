@@ -10,9 +10,7 @@ public class SkillUI : MonoBehaviour {
     public Image img;
     public Image img2;
 
-    float _Stime;
-    float _Etime;
-    int i, j, n, k, o;
+    int i, j, n;
     
     void RenderSprite()
     {
@@ -27,7 +25,6 @@ public class SkillUI : MonoBehaviour {
         i = 0;
         j = 0;
         n = 0;
-        k = 0;
 
         img.sprite = CutRenderValue82x82(texList[n], 6, 6);
         img2.sprite = CutRenderValue82x82(tex, 6, 6);        
@@ -126,7 +123,7 @@ public class SkillUI : MonoBehaviour {
         else if(Input.GetKeyDown(KeyCode.C))
         {
             RenderSprite();
-            i = j = n = k = 0;
+            i = j = n = 0;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public enum Map_eType
 {
@@ -17,18 +18,16 @@ public class LoadingUi : MonoBehaviour
 {
     public static string nextScene;
     public Text _text;
+    public Slider bar;
     int nCount = 0;
     string str = "Now Loading";
-
-    [SerializeField]
-    Image progressBar;
-
+    
     private void Start()
     {
+        bar.value = 0.0f;
         StartCoroutine(LoadScene());
     }
 
-    string nextSceneName;
     public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
@@ -42,32 +41,9 @@ public class LoadingUi : MonoBehaviour
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
 
-        float timer = 0.0f;
-        while (!op.isDone)
+        while(true)
         {
-            yield return null;
-
-            timer += Time.deltaTime;
-
-            if (op.progress >= 0.9f)
-            {
-                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-
-                if (progressBar.fillAmount == 1.0f)
-                    op.allowSceneActivation = true;
-            }
-            else
-            {
-                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, op.progress, timer);
-                if (progressBar.fillAmount >= op.progress)
-                {
-                    timer = 0f;
-
-                }
-            }
-
-            yield return new WaitForSeconds(0.5f);
-
+            yield return new WaitForSecondsRealtime(0.5f);
             _text.text += ".";
             if (nCount > 6)
             {
@@ -75,6 +51,18 @@ public class LoadingUi : MonoBehaviour
                 nCount = 0;
             }
             nCount++;
+
+            yield return null;
+            Debug.Log("in "+ op.progress);
+            bar.value = op.progress;
+
+            if (bar.value >= 0.9f)
+            {
+                 Debug.Log("value " + bar.value);
+                 Thread.Sleep(150);
+                 op.allowSceneActivation = true;
+                 yield return true;
+            }
         }
     }
 }

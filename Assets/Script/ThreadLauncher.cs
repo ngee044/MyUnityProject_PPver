@@ -6,18 +6,14 @@ using System.Threading;
 
 public class ThreadLauncher : MonoBehaviour
 {
-
     public Slider bar; // down
     public Slider bar2; // unzip
 
     private Thread m_DownLoadThread = null;
     private Thread m_UnZipThread = null;
 
-    Object sync = new Object();
-
     float nCount = 0;
     float nCount2 = 0;
-
 
     void Awake()
     {

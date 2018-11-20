@@ -5,15 +5,11 @@ using UnityEditor.SceneManagement;
 
 public class PauseGame : MonoBehaviour {
 
-    public GameObject PauseUI;
-
     bool m_IsPause;
 
     // Use this for initialization
     void Start () {
         m_IsPause = false;
-        PauseUI.SetActive(m_IsPause);
-
     }
 	
 	// Update is called once per frame
@@ -21,13 +17,10 @@ public class PauseGame : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Escape))
             m_IsPause = !m_IsPause;
 
-
         if (!m_IsPause)
             Time.timeScale = 1f;
         else
-            Time.timeScale = 0;
-
-        PauseUI.SetActive(m_IsPause);
+            Time.timeScale = 1f;
     }
 
     public void on_Restart_button_clicked()
@@ -67,7 +60,8 @@ public class PauseGame : MonoBehaviour {
                 okButtonTitle = "Yes",
                 OkButtonDelegate = () =>
                 {
-                    EditorSceneManager.LoadScene("GameTitle");
+                    LoadingUi.LoadScene("GameTitle");
+                    //EditorSceneManager.LoadScene("GameTitle");
                 }
             });
     }
