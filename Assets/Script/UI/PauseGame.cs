@@ -20,7 +20,7 @@ public class PauseGame : MonoBehaviour {
         if (!m_IsPause)
             Time.timeScale = 1f;
         else
-            Time.timeScale = 1f;
+            Time.timeScale = 0f;
     }
 
     public void on_Restart_button_clicked()

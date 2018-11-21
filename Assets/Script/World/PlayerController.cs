@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
         //충돌 중일 때
         if (rect.collider.tag == "Collision")
         {
-            Debug.Log("Collision + ing~");
+        
         }
     }
 
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour {
         //충돌끝날때
         if (rect.collider.tag == "Collision")
         {
-            Debug.Log("Collision Exit");
+
         }
     }
 
