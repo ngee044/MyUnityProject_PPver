@@ -33,6 +33,8 @@ public class MyPracticeSc : MonoBehaviour
 
     void Start()
     {
+        return;
+
         m_fStart = Time.time;
         m_fEnd = 1f;
 

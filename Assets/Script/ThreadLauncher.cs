@@ -26,10 +26,10 @@ public class ThreadLauncher : MonoBehaviour
         bar2.value = 0;
 
         m_DownLoadThread = new Thread(DownLoadThread);
-        m_DownLoadThread.Start();
+    //    m_DownLoadThread.Start();
 
         m_UnZipThread = new Thread(UnZipThread);
-        m_UnZipThread.Start();
+    //    m_UnZipThread.Start();
     }
 
     void Update()

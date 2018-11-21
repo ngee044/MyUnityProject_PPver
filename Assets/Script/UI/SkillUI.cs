@@ -5,34 +5,36 @@ using UnityEngine.UI;
 
 public class SkillUI : MonoBehaviour {
 
-    public Texture2D tex;
-    public List<Texture2D> texList;
+    public Texture2D Skill_Texture;
+    List<Sprite> texList = new List<Sprite>();
     public Image img;
-    public Image img2;
+    int num = 0;
 
-    int i, j, n;
-    
-    void RenderSprite()
+    void RenderSprite(int n)
     {
-        // if (_IsInput == false) return;
+        if (texList.Count < n + 1)
+            n = num = 0;
+        else if (n < 0) num = n = texList.Count - 1;
 
-        img.sprite = CutRenderValue82x82(texList[n], 6, 6);
-        img2.sprite = CutRenderValue82x82(tex, 6, 6);
+        img.sprite = texList[n];
     }
 
     // Use this for initialization
     void Start () {
-        i = 0;
-        j = 0;
-        n = 0;
 
-        img.sprite = CutRenderValue82x82(texList[n], 6, 6);
-        img2.sprite = CutRenderValue82x82(tex, 6, 6);        
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j = 0; j < 6; j++)
+                texList.Add(CutRenderValue82x82(Skill_Texture, 6, 6, i, j));
+        }
+        RenderSprite(num);
     }
 
-    Sprite CutRenderHomeWorkVer(Texture2D _t, int Row, int column)
+    Sprite CutRenderHomeWorkVer(Texture2D _t, int column, int Row, int i, int j)
     {
         Sprite sprite;
+
+        j = j % column;
 
         float rectX = (_t.width / column) * (j);
         float rectY = _t.height -( (_t.height / Row) * (i + 1) );
@@ -50,26 +52,13 @@ public class SkillUI : MonoBehaviour {
         return sprite;
     }
 
-    Sprite CutRenderValue64x64(Texture2D _t, int column, int Row)
-    {
-        Sprite sprite;
-        int x = 64, y = 64;
 
-        float rectX = x * (j);
-        float rectY = y - ((y / Row) * (i + 1));
-        float rectWidth = x / Row;
-        float rectHeight = y / column;
-
-        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
-        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
-
-        return sprite;
-    }
-
-    Sprite CutRenderValue82x82(Texture2D _t, int column, int Row)
+    Sprite CutRenderValue82x82(Texture2D _t, int column, int Row,int i, int j)
     {
         Sprite sprite;
         int x = 82, y = 82;
+
+        j = j % column;
 
         float rectX = x * (j);
         float rectY = _t.height - (y * (i + 1));
@@ -82,48 +71,22 @@ public class SkillUI : MonoBehaviour {
         return sprite;
     }
 
-    Sprite CutRenderValue128x128(Texture2D _t, int column, int Row)
-    {
-        Sprite sprite;
-        int x = 128, y = 128;
-
-        float rectX = x * (j);
-        float rectY = y - ((y / Row) * (i + 1));
-        float rectWidth = x / Row;
-        float rectHeight = y / column;
-
-        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
-        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
-
-        return sprite;
-    }
 
     // Update is called once per frame
     void Update () {
 
-
-
         if (Input.GetKeyDown(KeyCode.N))
         {
-            RenderSprite();
-            j++;
-            if (j >= 6)
-            {
-                i++;
-                j = 0;
-            }
-            if (i >= 6) i = 0;
+            RenderSprite(++num);
         }
         else if(Input.GetKeyDown(KeyCode.B))
         {
-            RenderSprite();
-            n++;
-            if (n > 2) n = 0;
+            RenderSprite(--num);
         }
         else if(Input.GetKeyDown(KeyCode.C))
         {
-            RenderSprite();
-            i = j = n = 0;
+            num = 0;
+            RenderSprite(num);
         }
     }
 }

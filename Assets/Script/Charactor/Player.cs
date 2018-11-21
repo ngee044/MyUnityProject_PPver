@@ -2,12 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ItemInfomation
+{
+    public ItemInfomation()
+    {
+        HP_Potion = 0;
+        MP_Potion = 0;
+        ATK_Potion = 0;
+        DEF_Potion = 0;
+        EXP_Potion = 0;
+        NODMG_Potion = 0;
+    }
+
+    public int HP_Potion;
+    public int MP_Potion;
+    public int ATK_Potion;
+    public int DEF_Potion;
+    public int EXP_Potion;
+    public int NODMG_Potion;
+}
+
 public class Player : Character
 {
     int _Lv;
     int _nID;
     int _Exp;
     int _ExpMax;
+    public ItemInfomation PlayerItem;
 
     public int GetPlayerInfo(CharacterInfo type)
     {
@@ -28,6 +49,7 @@ public class Player : Character
         ATK = atk;
         DEF = def;
 
+        PlayerItem = new ItemInfomation();
     }
     ~Player()
     {
