@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System.Threading;
+
+public class UnZipQueue
+{
+    public string strPath;
+
+}
 
 public class MyPracticeSc : MonoBehaviour
 {
@@ -11,16 +18,31 @@ public class MyPracticeSc : MonoBehaviour
     bool m_bActive;
     float m_fStart;
     float m_fEnd;
+    string m_local;
+    string m_root;
+    string m_Exception = "";
 
+    Queue<UnZipQueue> m_UnZipQueue = new Queue<UnZipQueue>();
+    long m_ZipSize;
+    UnZipQueue myzip = new UnZipQueue();
     void Awake()
     {
         label = GetComponent<Text>();
+
     }
 
     void Start()
     {
         m_fStart = Time.time;
         m_fEnd = 1f;
+
+        myzip.strPath = "C:\\test.zip";
+        m_UnZipQueue.Enqueue(myzip);
+        UnZipQueue unzip = m_UnZipQueue.Dequeue();
+        m_ZipSize = Zip.GetDeCompressFileSize(unzip.strPath);
+        Debug.Log("Size = " + m_ZipSize);
+
+        bool bRes = Zip.DeCompression(unzip.strPath, string.Format("{0}/AssetBundles/{1}/", m_local, m_root), ref m_Exception);
     }
 
     void Update()
