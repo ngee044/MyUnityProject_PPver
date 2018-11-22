@@ -5,6 +5,19 @@ using UnityEngine.UI;
 
 public class ItemUI : MonoBehaviour {
 
+    private static ItemUI instance;
+    public static ItemUI GetInstance()
+    {
+        if (!instance)
+        {
+            instance = GameObject.FindObjectOfType(typeof(ItemUI)) as ItemUI;
+            if (!instance)
+                Debug.Log("ERROR");
+        }
+
+        return instance;
+    }
+
     public Texture2D TextureItem;
     List<Sprite> m_ItemList = new List<Sprite>();
 
