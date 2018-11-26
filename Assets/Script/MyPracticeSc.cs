@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Threading;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.IO;
 
 public class UnZipQueue
 {
     public string strPath;
-
 }
 
 public class MyPracticeSc : MonoBehaviour
@@ -33,6 +35,22 @@ public class MyPracticeSc : MonoBehaviour
 
     void Start()
     {
+        if(Pc_MyStringStream())
+        {
+            if(Pc_MyStringRead())
+            {
+
+            }
+            else
+            {
+                Debug.Log("stringRead fail");
+            }
+
+        }
+        else
+        {
+            Debug.Log("stringStream fail");
+        }
         return;
 
         m_fStart = Time.time;
@@ -49,6 +67,7 @@ public class MyPracticeSc : MonoBehaviour
 
     void Update()
     {
+
         if(m_fStart + m_fEnd < Time.time)
         {
             //m_fEnd 값 초마다 이곳에 들어온다.
@@ -74,6 +93,40 @@ public class MyPracticeSc : MonoBehaviour
     void FixedUpdate()
     {
 
+    }
+
+
+    public bool Pc_MyStringStream()
+    {
+        string filepath = "C:\\MyTest.txt";
+        string user_key = "ngee044";
+        System.IO.StreamWriter file = new System.IO.StreamWriter(filepath, false);
+
+        file.WriteLine(user_key);
+        Debug.Log("==> file save guestID: " + user_key);
+        file.Close();
+
+        return true;
+    }
+
+
+    public bool Pc_MyStringRead()
+    {
+        string file_Path= "C:\\MyTest.txt";
+        string token;
+        List<string> arr = new List<string>();
+
+        System.IO.StreamReader file = new System.IO.StreamReader(file_Path, false);
+
+        arr.Add(file.ReadLine());
+        if (arr[0] == null) return false;
+
+        for (int i = 0; i < arr.Count; i++)
+            Debug.Log("==> file read guestID: " + arr[i]);
+
+        label.text = arr[0];
+
+        return true;
     }
 
     public void AttackEvent()

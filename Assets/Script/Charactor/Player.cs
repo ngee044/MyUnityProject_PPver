@@ -12,8 +12,10 @@ public class ItemInfomation
         DEF_Potion = 0;
         EXP_Potion = 0;
         NODMG_Potion = 0;
+        Gold = 0;
     }
 
+    public int Gold;
     public int HP_Potion;
     public int MP_Potion;
     public int ATK_Potion;
