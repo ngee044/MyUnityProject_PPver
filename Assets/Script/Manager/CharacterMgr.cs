@@ -23,7 +23,7 @@ public class CharacterMgr : MonoBehaviour
     private List<Monster> _Monster = new List<Monster>();
     private Monster _Boss = null;
     private Player _Player = null;
-    
+
     public Player GetPlayer
     {
         get { return _Player; }

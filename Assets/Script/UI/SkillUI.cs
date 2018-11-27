@@ -25,52 +25,10 @@ public class SkillUI : MonoBehaviour {
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < 6; j++)
-                texList.Add(CutRenderValue82x82(Skill_Texture, 6, 6, i, j));
+                texList = ImageMgr.GetInstance.GetImageSkill();
         }
         RenderSprite(num);
     }
-
-    Sprite CutRenderHomeWorkVer(Texture2D _t, int column, int Row, int i, int j)
-    {
-        Sprite sprite;
-
-        j = j % column;
-
-        float rectX = (_t.width / column) * (j);
-        float rectY = _t.height -( (_t.height / Row) * (i + 1) );
-        float rectWidth = _t.width / Row;
-        float rectHeight = _t.height / column;
-
-        Debug.Log("X = " + rectX);
-        Debug.Log("Y = " + rectY);
-        Debug.Log("Width = " + rectWidth);
-        Debug.Log("Height = " + rectHeight);
-
-        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
-        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
-
-        return sprite;
-    }
-
-
-    Sprite CutRenderValue82x82(Texture2D _t, int column, int Row,int i, int j)
-    {
-        Sprite sprite;
-        int x = 82, y = 82;
-
-        j = j % column;
-
-        float rectX = x * (j);
-        float rectY = _t.height - (y * (i + 1));
-        float rectWidth = x;
-        float rectHeight = y;
-
-        Rect rect = new Rect(rectX, rectY, rectWidth, rectHeight);
-        sprite = Sprite.Create(_t, rect, new Vector2(0, 0));
-
-        return sprite;
-    }
-
 
     // Update is called once per frame
     void Update () {
