@@ -27,7 +27,7 @@ public class ItemInfomation
 public class Player : Character
 {
     int _Lv;
-    int _nID;
+    string _ID;
     int _Exp;
     int _ExpMax;
     public ItemInfomation PlayerItem;
@@ -37,7 +37,7 @@ public class Player : Character
         return 0;
     }
 
-    public Player(int id, string Name, int hp, int mp, int atk, int def, int StartLv)
+    public Player(string id, string Name, int hp, int mp, int atk, int def, int StartLv)
     {
         Debug.Log("플레이어 클래스 진입");
         PlayerID = id;
@@ -85,10 +85,10 @@ public class Player : Character
         set { _Lv = value; }
         get { return _Lv;  }
     }
-    public int PlayerID
+    public string PlayerID
     {
-        set { _nID = value; }
-        get { return _nID;  }
+        set { _ID = value; }
+        get { return _ID;  }
     }
     public int PlayerExp
     {

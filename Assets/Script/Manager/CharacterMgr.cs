@@ -65,7 +65,7 @@ public class CharacterMgr : MonoBehaviour
         }
     }
 
-    public void CreatePlayer(string Name, int nid)
+    public void CreatePlayer(string Name, string id)
     {
         Debug.Log("CharacterMgr - CreatePlayer()");
 #if false
@@ -81,7 +81,7 @@ public class CharacterMgr : MonoBehaviour
         int def = (int)Table[0]["DEF"];
         Debug.Log("info " + lv + " " + hp + " " + mp + " " + atk + " " +def + " ");
 #endif
-        _Player = new Player(nid, Name, 150, 100, 30, 10, 1);
+        _Player = new Player(id, Name, 150, 100, 30, 10, 1);
         //_Player = new Player(nid, name, hp, mp, atk, def, lv);
     }
 }

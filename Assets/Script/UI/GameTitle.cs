@@ -12,7 +12,8 @@ public class GameTitle : MonoBehaviour {
     public AudioSource titleBGM;
     public AudioSource clickeSound;
     public InputField ConnectCode_LineEdit;
-    
+    public Text LineEdit_Text;
+
     int m_nCount = 0;
 
     void Awake()
@@ -20,7 +21,8 @@ public class GameTitle : MonoBehaviour {
         titleBGM.Play();
     }
 
-	void Start () {
+    void Start() {
+        
         StartCoroutine(KeyClickEvent());
     }
 	

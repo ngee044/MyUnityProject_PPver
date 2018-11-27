@@ -14,6 +14,21 @@ public class UnZipQueue
 
 public class MyPracticeSc : MonoBehaviour
 {
+    private static MyPracticeSc _instance = null;
+
+    public static MyPracticeSc GetInstance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType(typeof(MyPracticeSc)) as MyPracticeSc;
+                if (_instance == null)
+                    Debug.LogError("Practive Class No Active!!!");
+            }
+            return _instance;
+        }
+    }
 
     public List<Animator> ListAnimator = new List<Animator>();
     public Text label;
@@ -125,8 +140,19 @@ public class MyPracticeSc : MonoBehaviour
             Debug.Log("==> file read guestID: " + arr[i]);
 
         label.text = arr[0];
+        strID = arr[0];
+        file.Close();
 
         return true;
+    }
+
+    string strID;
+    public string strId
+    {
+        get
+        {
+            return strID;
+        }
     }
 
     public void AttackEvent()
