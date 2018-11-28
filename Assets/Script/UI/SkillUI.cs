@@ -13,13 +13,9 @@ public class SkillUI : MonoBehaviour {
     int m_skill_number;
 
     // Use this for initialization
-    private void Awake()
-    {
-        texList = ImageMgr.GetInstance.GetImageSkill();
-    }
     void Start () {
-        
-        
+        texList = ImageMgr.GetInstance.GetImageSkill();
+
         m_skill_number = 0;
         RenderSprite(m_skill_number);
     }
@@ -28,16 +24,15 @@ public class SkillUI : MonoBehaviour {
     {
         int nCount;
         nCount = n; // texList.Count;
-        Debug.Log("current value = " + m_skill_number);
+
         if (nCount + 1 > skillCount)
             m_skill_number = 0;
         else if (nCount < 0)
             m_skill_number = skillCount - 1;
         else if (nCount == 0)
             m_skill_number = 0;
-        Debug.Log("current value = " + m_skill_number);
+
         img.sprite = texList[m_skill_number];
-        Debug.Log("current value = " + m_skill_number);
     }
 
     // Update is called once per frame

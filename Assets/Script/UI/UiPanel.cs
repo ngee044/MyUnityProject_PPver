@@ -3,9 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum eTypeUi
+{
+    eType_MessageBox = 0,
+    eType_Shop = 1,
+    eType_End,
+}
+
 public class UiPanel : MonoBehaviour
 {
     public List<GameObject> ListUi = new List<GameObject>();
+    private static UiPanel _instance = null;
+
+    public static UiPanel GetInstance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                //_instance = new UiPanel();
+                _instance = FindObjectOfType(typeof(UiPanel)) as UiPanel;
+                if (_instance == null)
+                    Debug.LogError("UiPanel No Active!!!");
+            }
+            return _instance;
+        }
+    }
 
     // Use this for initialization
     void Start()

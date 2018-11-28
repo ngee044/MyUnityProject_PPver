@@ -73,6 +73,20 @@ public class PlayerController : MonoBehaviour {
         {
         
         }
+        else if(rect.collider.tag == "ShopNpc")
+        {
+
+            if(Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("On Click NPC");
+                Ray MouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if(Physics.Raycast(MouseRay, out hit, 1000.0f, 1 << LayerMask.NameToLayer("NPC_ClickLayer")))
+                {
+                    UiPanel.GetInstance.ListUi[(int)eTypeUi.eType_Shop].SetActive(true);
+                }
+            }
+        }
     }
 
     private void OnCollisionExit(Collision rect)
@@ -81,6 +95,13 @@ public class PlayerController : MonoBehaviour {
         if (rect.collider.tag == "Collision")
         {
 
+        }
+        else if (rect.collider.tag == "ShopNpc")
+        {
+            if(UiPanel.GetInstance.ListUi[(int)eTypeUi.eType_Shop].activeSelf == true)
+            {
+                UiPanel.GetInstance.ListUi[(int)eTypeUi.eType_Shop].SetActive(false);
+            }
         }
     }
 

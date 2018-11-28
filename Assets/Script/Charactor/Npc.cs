@@ -5,8 +5,8 @@ using UnityEngine;
 public class Npc : Character
 {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
