@@ -24,8 +24,6 @@ public class ShopItemList : MonoBehaviour {
         var inst = Instantiate(ItemList[0]); // HP Potion Value;
         
         inst.transform.SetParent(ShopCanvas.content);
-
-        
     }
 	
 	// Update is called once per frame
