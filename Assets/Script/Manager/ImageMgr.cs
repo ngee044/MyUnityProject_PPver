@@ -11,7 +11,6 @@ public enum eItemType
     ITEM_TYPE_END,
 }
 
-
 public class ImageMgr : MonoBehaviour
 { 
     private static ImageMgr _instance = null;
@@ -38,7 +37,6 @@ public class ImageMgr : MonoBehaviour
     List<Sprite> m_EtcList = new List<Sprite>();    //1
     List<Sprite> m_WeaponList = new List<Sprite>(); //2
     List<Sprite> m_SkillList = new List<Sprite>();  //3
-
 
     List<GameObject> m_PrefabObject = new List<GameObject>();
 
