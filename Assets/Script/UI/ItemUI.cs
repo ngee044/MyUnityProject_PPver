@@ -27,4 +27,50 @@ public class ItemUI : MonoBehaviour {
 
     }
 
+    public void on_ItemMP_clicked()
+    {
+        int curItemCount = CharacterMgr.GetInstance.GetPlayer.PlayerItem.MP_Potion;
+
+        if (curItemCount > 0)
+        {
+            int curPlayerMP = CharacterMgr.GetInstance.GetPlayer.MP;
+            int Max = CharacterMgr.GetInstance.GetPlayer.MPMAX;
+
+            if (curPlayerMP >= Max) return;
+
+            CharacterMgr.GetInstance.GetPlayer.PlayerItem.MP_Potion = curItemCount - 1;
+
+            curPlayerMP += 50;
+            if (Max < curPlayerMP)
+                curPlayerMP = Max;
+
+            CharacterMgr.GetInstance.GetPlayer.MP = curPlayerMP;
+        }
+        else
+            return;
+    }
+
+    public void on_ItemHP_clicked()
+    {
+        int curItemCount = CharacterMgr.GetInstance.GetPlayer.PlayerItem.HP_Potion;
+
+        if (curItemCount > 0)
+        {
+            int curPlayerHP = CharacterMgr.GetInstance.GetPlayer.HP;
+            int Max = CharacterMgr.GetInstance.GetPlayer.HPMAX;
+
+            if (curPlayerHP >= Max) return;
+
+            CharacterMgr.GetInstance.GetPlayer.PlayerItem.HP_Potion = curItemCount - 1;
+
+            curPlayerHP += 50;
+            if (Max < curPlayerHP)
+                curPlayerHP = Max;
+
+            CharacterMgr.GetInstance.GetPlayer.HP = curPlayerHP;
+        }
+        else
+            return;
+    }
+
 }
