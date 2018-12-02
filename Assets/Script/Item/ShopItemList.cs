@@ -23,7 +23,7 @@ public class ShopItemList : MonoBehaviour {
     // Use this for initialization
     void Start () {
         m_ItemSprite = ImageMgr.GetInstance.GetImageItem(eItemType.POTION_TYPE);
-        MyGoldValue.text = CharacterMgr.GetInstance.GetPlayer.PlayerItem.Gold.ToString();
+        MyGoldValue.text = CharacterMgr.GetInstance.GetPlayer.PlayerItem.Gold.ToString()+ " EK";
 
         if (ShopType == eTypeShop.PotionShop_Type)
         {
@@ -34,6 +34,11 @@ public class ShopItemList : MonoBehaviour {
         {
             Debug.Log("UnKnown ShowType, Value = " + ShopType);
         }
+    }
+
+    private void Update()
+    {
+        MyGoldValue.text = CharacterMgr.GetInstance.GetPlayer.PlayerItem.Gold.ToString() + " EK";
     }
 
     public void CreateShopItem(string str, int index, BuyItemType item)

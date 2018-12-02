@@ -14,7 +14,7 @@ public class UiPanel : MonoBehaviour
 {
     public List<GameObject> ListUi = new List<GameObject>();
     private static UiPanel _instance = null;
-
+    bool m_CheckInfoActive = false;
     public static UiPanel GetInstance
     {
         get
@@ -48,6 +48,12 @@ public class UiPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            m_CheckInfoActive = !m_CheckInfoActive;
+            ListUi[2].SetActive(m_CheckInfoActive);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             bool Ischeck = true;
@@ -67,12 +73,5 @@ public class UiPanel : MonoBehaviour
                 Time.timeScale = 0f;
             }
         }
-
-    }
-
-    public void on_rejected_clicked()
-    {
-        ListUi[0].SetActive(false);
-        Time.timeScale = 1f;
     }
 }

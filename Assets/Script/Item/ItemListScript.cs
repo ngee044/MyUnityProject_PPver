@@ -28,7 +28,7 @@ public class ItemListScript : MonoBehaviour {
     public bool CheckPlayerGold(int gold, int cost)
     {
         int curGold = gold;
-        curGold =- cost;
+        curGold -= cost;
         if(curGold < 0)
         {
             MessageBox.Show("소지금 부족", "돈이 부족해 아이템을 구입X", null);

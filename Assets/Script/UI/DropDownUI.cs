@@ -19,7 +19,6 @@ public class DropDownUI : MonoBehaviour {
 
         Box.AddOptions(options);
         Box.value = 0;
-
     }
 	
 	// Update is called once per frame

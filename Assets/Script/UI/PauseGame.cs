@@ -5,6 +5,8 @@ using UnityEditor.SceneManagement;
 
 public class PauseGame : MonoBehaviour {
 
+    public GameObject pauseMenu;
+
     // Use this for initialization
     void Start () {
     }
@@ -55,5 +57,11 @@ public class PauseGame : MonoBehaviour {
                     //EditorSceneManager.LoadScene("GameTitle");
                 }
             });
+    }
+
+    public void on_rejected_clicked()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

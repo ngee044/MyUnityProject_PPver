@@ -31,6 +31,7 @@ public class LoadingUi : MonoBehaviour
     public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
+        Debug.Log("Load Scene : " + sceneName);
         SceneManager.LoadScene("LoadingScene");
     }
 

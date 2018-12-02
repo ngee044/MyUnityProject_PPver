@@ -12,7 +12,7 @@ public class ItemInfomation
         DEF_Potion = 0;
         EXP_Potion = 0;
         NODMG_Potion = 0;
-        Gold = 0;
+        Gold = 500;
     }
 
     public int Gold;
