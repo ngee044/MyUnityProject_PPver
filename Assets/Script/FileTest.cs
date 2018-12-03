@@ -42,11 +42,6 @@ public class FileTest : MonoBehaviour {
             m_Dictionary.Add(i, new info(i));
         }
 
-        for(int j = 0; j < 50; j++)
-        {
-            Debug.Log("id = " + m_Dictionary[j].id + " str = " + m_Dictionary[j].str);
-        }
-
         bf.Serialize(file, m_Dictionary);
         file.Close();
     }

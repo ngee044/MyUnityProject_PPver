@@ -68,20 +68,11 @@ public class CharacterMgr : MonoBehaviour
     public void CreatePlayer(string Name, string id)
     {
         Debug.Log("CharacterMgr - CreatePlayer()");
-#if false
-        List<Dictionary<string, object>> Table = CSVReader.Read("MyPlayerInfo");
 
-        Debug.Log("Data Create()?? " + Table.Count);
-        string name = (string)Table[0]["NAME"];
-
-        int lv = (int)Table[0]["LV"];
-        int hp = (int)Table[0]["HP"];
-        int mp = (int)Table[0]["MP"];
-        int atk = (int)Table[0]["ATK"];
-        int def = (int)Table[0]["DEF"];
-        Debug.Log("info " + lv + " " + hp + " " + mp + " " + atk + " " +def + " ");
-#endif
+#if true
         _Player = new Player(id, Name, 150, 100, 30, 10, 1);
+#endif
+
         //_Player = new Player(nid, name, hp, mp, atk, def, lv);
     }
 }
