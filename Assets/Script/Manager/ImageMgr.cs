@@ -40,6 +40,11 @@ public class ImageMgr : MonoBehaviour
 
     List<GameObject> m_PrefabObject = new List<GameObject>();
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     private void Start()
     {
         for(int i = 0; i < 16; i++) // 16X16

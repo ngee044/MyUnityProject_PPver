@@ -20,6 +20,11 @@ public class CharacterMgr : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     private List<Monster> _Monster = new List<Monster>();
     private Monster _Boss = null;
     private Player _Player = null;
@@ -41,22 +46,20 @@ public class CharacterMgr : MonoBehaviour
 
     public void CreateMonster(MonsterType index)
     {
-        List<Dictionary<string, object>> data = CSVReader.Read("Monster");
+        Debug.Log("CharacterMgr - CreateMonster() MonsterType =" + index);
+        bool is_Boss = AccountMgr.GetInstance.GetMonsterInfo[(int)index].IsBoss;
 
-        var i = (int)index;
-        string name = (string)data[i]["NAME"];
-        int hp = (int)data[i]["HP"];
-        int mp = (int)data[i]["MP"];
-        int atk = (int)data[i]["ATK"];
-        int def = (int)data[i]["DEF"];
-        bool is_Boss = (bool)data[i]["BOSS"];
-        
+        string name = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Name;
+        int hp = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Hp;
+        int mp = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Mp;
+        int atk = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Atk;
+        int def = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Def;
+
         if (is_Boss)
         {
-            if (_Boss != null)
-            {
+            if(_Boss == null)
                 _Boss = new Monster("BossMonster", 1500, 0, 90, 35);
-            }
+
         }
         else
         {
@@ -69,10 +72,18 @@ public class CharacterMgr : MonoBehaviour
     {
         Debug.Log("CharacterMgr - CreatePlayer()");
 
-#if true
-        _Player = new Player(id, Name, 150, 100, 30, 10, 1);
-#endif
+        int index = AccountMgr.GetInstance.PlayerIndex;
 
-        //_Player = new Player(nid, name, hp, mp, atk, def, lv);
+        int hp = AccountMgr.GetInstance.GetPlayerInfo[index].Hp;
+        int mp = AccountMgr.GetInstance.GetPlayerInfo[index].Mp;
+        int atk = AccountMgr.GetInstance.GetPlayerInfo[index].Atk;
+        int def = AccountMgr.GetInstance.GetPlayerInfo[index].Def;
+        int lv = AccountMgr.GetInstance.GetPlayerInfo[index].Level;
+
+#if false
+        _Player = new Player(id, Name, 150, 100, 30, 10, 1);
+#else
+        _Player = new Player(id, Name, hp, mp, atk, def, lv);
+#endif
     }
 }

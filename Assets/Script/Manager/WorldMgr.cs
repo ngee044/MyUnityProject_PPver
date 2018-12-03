@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class WorldMgr : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

@@ -45,19 +45,42 @@ public class GameTitle : MonoBehaviour {
 
     }
 
+    public void InitData()
+    {
+        int index = AccountMgr.GetInstance.PlayerIndex;
+        CharacterMgr.GetInstance.CreatePlayer(AccountMgr.GetInstance.GetPlayerInfo[index].Name, AccountMgr.GetInstance.GetPlayerInfo[index].Id);
+        Debug.Log("플레이어 캐릭터 생성 완료");
+        Debug.Log("Account Update 실행");
+        AccountMgr.GetInstance.StartUpdate = true;
+    }
+
     public void on_StartButton_clicked()
     {
-        if((ConnectCode_LineEdit.text == "ngee044") == false)
+        bool isCheck = false;
+
+        for (int i = 0; i < AccountMgr.GetInstance.GetPlayerInfo.Count; i++)
+        {
+            // ID search
+            if ((ConnectCode_LineEdit.text == AccountMgr.GetInstance.GetPlayerInfo[i].Id) == true)
+            {
+                isCheck = true;
+                AccountMgr.GetInstance.PlayerIndex = i;
+                break;
+            }
+        }
+
+        if(!isCheck)
         {
             string title = "접속 오류";
             string msg = "올바른 접속 코드를 입력하세요.";
             MessageBox.Show(title, msg, null);
             return;
         }
+
+        InitData();
         clickeSound.Play();
         titleBGM.Stop();
         LoadingUi.LoadScene("MainGame");
-
     }
 
     public void on_ExitButton_clicked()

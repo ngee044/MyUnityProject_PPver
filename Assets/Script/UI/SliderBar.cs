@@ -26,7 +26,9 @@ public class SliderBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
         RefreshOfPlayerUI();
+
     }
 
     private void RefreshOfPlayerUI()
@@ -44,7 +46,7 @@ public class SliderBar : MonoBehaviour {
         EXP_label.text = CharacterMgr.GetInstance.GetPlayer.PlayerExp.ToString() + " / " + _EXPmax.ToString();
         Level_label.text = "LV" + CharacterMgr.GetInstance.GetPlayer.PlayerLevel.ToString();
 
-        CharacterMgr.GetInstance.GetPlayer.PlayerLevelUp();
+        
     }
 
     IEnumerator HPEvent()

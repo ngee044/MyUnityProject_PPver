@@ -53,6 +53,7 @@ public class PauseGame : MonoBehaviour {
                 okButtonTitle = "Yes",
                 OkButtonDelegate = () =>
                 {
+                    AccountMgr.GetInstance.Delete();
                     LoadingUi.LoadScene("GameTitle");
                     //EditorSceneManager.LoadScene("GameTitle");
                 }

@@ -1,0 +1,5 @@
+NAME,TYPE,VALUE,COST
+HP Potion,0,50,50
+MP Potion,1,50,50
+EXP Potion,2,200,300
+EMPTY Potion,3,0,100

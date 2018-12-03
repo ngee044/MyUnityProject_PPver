@@ -30,6 +30,11 @@ public class UiPanel : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     // Use this for initialization
     void Start()
     {

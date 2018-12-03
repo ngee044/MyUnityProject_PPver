@@ -70,8 +70,8 @@ public class Player : Character
             MPMAX += GetNum;
             HP = HPMAX;
             MP = MPMAX;
-            ATK += 2;
-            DEF ++;
+            ATK += GetNum;
+            DEF += GetNum;
             PlayerLevelUp();
         }
     }
