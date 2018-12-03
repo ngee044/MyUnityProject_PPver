@@ -10,6 +10,7 @@ public class SkillUI : MonoBehaviour {
     public Image img;
     public Button skillbutton;
     public int skillCount;
+
     int m_skill_number;
 
     // Use this for initialization
@@ -35,22 +36,14 @@ public class SkillUI : MonoBehaviour {
         img.sprite = texList[m_skill_number];
     }
 
-    // Update is called once per frame
-    void Update () {
+    public void on_NextButton_clicked()
+    {
+        RenderSprite(++m_skill_number);
+    }
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            RenderSprite(++m_skill_number);
-        }
-        else if(Input.GetKeyDown(KeyCode.B))
-        {
-            RenderSprite(--m_skill_number);
-        }
-        else if(Input.GetKeyDown(KeyCode.C))
-        {
-            m_skill_number = 0;
-            RenderSprite(m_skill_number);
-        }
+    public void on_PrevButton_clicked()
+    {
+        RenderSprite(--m_skill_number);
     }
 
     public void on_SkillButton_clicked()
