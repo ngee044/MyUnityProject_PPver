@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SkillUI : MonoBehaviour {
 
-    public Texture2D Skill_Texture;
     List<Sprite> texList = new List<Sprite>();
     public Image img;
     public Button skillbutton;
