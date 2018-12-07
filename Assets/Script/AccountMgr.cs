@@ -126,6 +126,16 @@ public class AccountMgr : MonoBehaviour {
         CharacterMgr.GetInstance.GetPlayer.PlayerLevelUp();
     }
 
+    public void getMonsterAccount()
+    {
+
+    }
+
+    public void Send_MonsterAccount()
+    {
+
+    }
+
     private void SetPlayerData()
     {
         m_PlayerTable = CSVReader.Read("MyPlayerInfo");

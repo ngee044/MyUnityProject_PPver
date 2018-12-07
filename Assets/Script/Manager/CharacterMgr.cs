@@ -39,9 +39,9 @@ public class CharacterMgr : MonoBehaviour
         get { return _Boss; }
     }
 
-    public Monster GetMonster(int i)
+    public List<Monster> GetMonster
     {
-        return _Monster[i];
+        get { return _Monster; } 
     }
 
     public void CreateMonster(MonsterType index)

@@ -54,7 +54,7 @@ public class SkillUI : MonoBehaviour {
         int mpmax = CharacterMgr.GetInstance.GetPlayer.MPMAX;
         int current_mp = CharacterMgr.GetInstance.GetPlayer.MP;
 
-        if(m_skill_number == 0 || m_skill_number == 2)
+        if(m_skill_number == 3 || m_skill_number == 2)
         {
             current_mp -= 20;
             if(current_mp >= 0)
