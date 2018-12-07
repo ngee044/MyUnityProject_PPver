@@ -15,7 +15,10 @@ public class SkillUI : MonoBehaviour {
     // Use this for initialization
     void Start () {
         texList = ImageMgr.GetInstance.GetImageSkill();
-
+        foreach (var list in texList)
+        {
+            Debug.Log(list);
+        }
         m_skill_number = 0;
         RenderSprite(m_skill_number);
     }

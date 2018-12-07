@@ -11,7 +11,16 @@ public class BulletCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GetComponent<Rigidbody>().AddForce(transform.forward * Speed);
-	}
+
+        StartCoroutine(destroyBullet());
+
+    }
+
+    IEnumerator destroyBullet()
+    {
+        yield return new WaitForSecondsRealtime(2.0f);
+        Destroy(this.gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {
