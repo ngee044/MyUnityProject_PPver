@@ -52,6 +52,4 @@ public partial class Character : MonoBehaviour
         set { status.def = value; }
         get { return status.def; }
     }
-
-
 }

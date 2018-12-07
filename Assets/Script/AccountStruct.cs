@@ -48,7 +48,7 @@ public class AccountPlayerInfo
         Id = id;
         Name = name;
         Exp = 0;
-        PlayerGold = 500;
+        PlayerGold = 0;
         Debug.Log("Account_'Player'Info init");
     }
 }

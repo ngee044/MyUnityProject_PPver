@@ -58,8 +58,7 @@ public class CharacterMgr : MonoBehaviour
         if (is_Boss)
         {
             if(_Boss == null)
-                _Boss = new Monster("BossMonster", 1500, 0, 90, 35);
-
+                _Boss = new Monster(name, hp, mp, atk, def);
         }
         else
         {

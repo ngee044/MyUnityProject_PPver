@@ -5,7 +5,6 @@ using System;
 
 public class Monster : Character
 {
-
     public Monster(string Name, int hp, int mp, int atk, int def)
     {
         status.Name = name;
@@ -13,6 +12,5 @@ public class Monster : Character
         status.mp = status.mpMax = mp;
         status.atk = atk;
         status.def = def;
-        
     }
 }
