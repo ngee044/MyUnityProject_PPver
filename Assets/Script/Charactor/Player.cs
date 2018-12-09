@@ -31,6 +31,7 @@ public class Player : Character
     int _Exp;
     int _ExpMax;
     public ItemInfomation PlayerItem;
+    public int SelectSkill { get; set; }
 
     public int GetPlayerInfo(CharacterInfo type)
     {
@@ -52,6 +53,7 @@ public class Player : Character
         DEF = def;
 
         PlayerItem = new ItemInfomation();
+        SelectSkill = (int)SkilleType.NML_SK;
     }
     ~Player()
     {

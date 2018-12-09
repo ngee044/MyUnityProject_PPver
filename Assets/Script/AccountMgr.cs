@@ -164,7 +164,7 @@ public class AccountMgr : MonoBehaviour {
 
     private void SetMonsterData()
     {
-        m_MonsterTable = CSVReader.Read("Monster");
+        m_MonsterTable = CSVReader.Read("MonsterInfo");
         for (int i = 0; i < m_MonsterTable.Count; i++)
         {
             string Name;
@@ -186,12 +186,9 @@ public class AccountMgr : MonoBehaviour {
 
             if (Boss == 1)
                 CheckBoss = true;
-            else
-                CheckBoss = false;
 
             m_ListmonsterInfo.Add(new AccountMonsterInfo(Exp, Hp, Mp, Atk, Def, Name, CheckBoss));
         }
-
     }
 
     public void SetItemData()

@@ -5,12 +5,16 @@ using System;
 
 public class Monster : Character
 {
-    public Monster(string Name, int hp, int mp, int atk, int def)
+    int TYPE { get; set; }
+
+    public Monster(string Name, int hp, int mp, int atk, int def, int type)
     {
-        status.Name = name;
-        status.hp = status.hpMax = hp;
-        status.mp = status.mpMax = mp;
-        status.atk = atk;
-        status.def = def;
+        NAME = Name;
+        HP = HPMAX = hp;
+        MP = MPMAX = mp;
+        ATK = atk;
+        DEF = def;
+        TYPE = type;
     }
+
 }

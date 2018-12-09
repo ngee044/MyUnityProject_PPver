@@ -8,5 +8,7 @@ public class WallCtrl : MonoBehaviour {
     {
         if (collision.collider.tag == "Bullet")
             Destroy(collision.gameObject);
+        else if (collision.collider.tag == "skill")
+            Destroy(collision.gameObject);
     }
 }

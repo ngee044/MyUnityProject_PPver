@@ -21,14 +21,11 @@ public class SliderBar : MonoBehaviour {
     // Use this for initialization
     void Start () {
         MonsterHP.gameObject.SetActive(false);
-        StartCoroutine(HPEvent());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
         RefreshOfPlayerUI();
-
     }
 
     private void RefreshOfPlayerUI()
@@ -44,19 +41,6 @@ public class SliderBar : MonoBehaviour {
         HP_label.text = CharacterMgr.GetInstance.GetPlayer.HP.ToString() + " / " + _HPmax.ToString();
         MP_label.text = CharacterMgr.GetInstance.GetPlayer.MP.ToString() + " / " + _MPmax.ToString();
         EXP_label.text = CharacterMgr.GetInstance.GetPlayer.PlayerExp.ToString() + " / " + _EXPmax.ToString();
-        Level_label.text = "LV" + CharacterMgr.GetInstance.GetPlayer.PlayerLevel.ToString();
-
-        
+        Level_label.text = "LV" + CharacterMgr.GetInstance.GetPlayer.PlayerLevel.ToString();   
     }
-
-    IEnumerator HPEvent()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-        }
-    }
-
-    
-
 }
