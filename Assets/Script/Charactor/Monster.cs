@@ -5,16 +5,16 @@ using System;
 
 public class Monster : Character
 {
-    int TYPE { get; set; }
+    public int EXP { get; set; }
 
-    public Monster(string Name, int hp, int mp, int atk, int def, int type)
+    public Monster(string Name, int hp, int mp, int atk, int def, int exp)
     {
         NAME = Name;
         HP = HPMAX = hp;
         MP = MPMAX = mp;
         ATK = atk;
         DEF = def;
-        TYPE = type;
+        EXP = exp;
     }
 
 }

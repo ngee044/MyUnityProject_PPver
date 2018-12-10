@@ -55,25 +55,26 @@ public class CharacterMgr : MonoBehaviour
         int mp = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Mp;
         int atk = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Atk;
         int def = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Def;
-        int type = 0;
+        int exp = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Exp;
+        //int type = 0;
 
-        if (name == "Orc")
-            type = (int)MonsterType.eTYPE_MONSTER_ORCE;
-        else if(name == "Troll")
-            type = (int)MonsterType.eTYPE_MONSTER_TRORR;
-        else if (name == "MK")
-            type = (int)MonsterType.eTYPE_MONSTER_MK;
-        else if (name == "EK_BOSS")
-            type = (int)MonsterType.eTYPE_MONSTER_EK_BOSS;
+        //if (name == "Orc")
+        //    type = (int)MonsterType.eTYPE_MONSTER_ORCE;
+        //else if(name == "Troll")
+        //    type = (int)MonsterType.eTYPE_MONSTER_TRORR;
+        //else if (name == "MK")
+        //    type = (int)MonsterType.eTYPE_MONSTER_MK;
+        //else if (name == "EK_BOSS")
+        //    type = (int)MonsterType.eTYPE_MONSTER_EK_BOSS;
 
         if (is_Boss)
         {
             if(_Boss == null)
-                _Boss = new Monster(name, hp, mp, atk, def, type);
+                _Boss = new Monster(name, hp, mp, atk, def, exp);
         }
         else
         {
-            Monster monster = new Monster(name, hp, mp, atk, def, type);
+            Monster monster = new Monster(name, hp, mp, atk, def, exp);
             _Monster.Add(monster);
         }
     }

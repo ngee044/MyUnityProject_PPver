@@ -258,8 +258,4 @@ public class AccountMgr : MonoBehaviour {
         Destroy(this);
         file.Close();
     }
-
-
-
-    
 }

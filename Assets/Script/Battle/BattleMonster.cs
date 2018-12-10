@@ -89,8 +89,10 @@ public class BattleMonster : MonoBehaviour {
         if (m_Monster.HP <= 0)
         {
             m_Monster = CharacterMgr.GetInstance.GetMonster[(int)SelectType];
-            //Destroy(this.gameObject);
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
+            //this.gameObject.SetActive(false);
+
+            CharacterMgr.GetInstance.GetPlayer.PlayerExp += m_Monster.EXP;
         }
     }
 
