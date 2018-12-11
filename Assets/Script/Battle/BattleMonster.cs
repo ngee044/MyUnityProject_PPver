@@ -11,8 +11,13 @@ public class BattleMonster : MonoBehaviour {
 
     static int taget;
 
-    // Use this for initialization
-    void Start() {
+
+    private void Start()
+    {
+        init();
+    }
+
+    public void init() {
         Debug.Log("Make "+SelectType + " num = "+ (int)SelectType);
         taget = (int)SelectType;
         Monster monster = CharacterMgr.GetInstance.GetMonster[(int)SelectType];
