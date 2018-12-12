@@ -24,8 +24,15 @@ public abstract class CNAbstractController : MonoBehaviour , IPointerUpHandler, 
     public Image bgImage;
     public Image joystickImage;
 
-    private Vector3 inputVector;
-    private Vector3 BallDefalutpostion;
+    public Image FocusUp;
+    public Image FocusDown;
+    public Image FocusLeft;
+    public Image FocusRigth;
+
+    public float InsertDistance;
+
+    protected Vector3 inputVector;
+    protected Vector3 BallDefalutpostion;
     private void Start()
     {
         //inputVector = joystickImage.transform.position;
@@ -65,7 +72,6 @@ public abstract class CNAbstractController : MonoBehaviour , IPointerUpHandler, 
     {
         inputVector = Vector3.zero;
         joystickImage.rectTransform.anchoredPosition = Vector3.zero;
-        //joystickImage.transform.position = BallDefalutpostion;
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
@@ -101,15 +107,11 @@ public abstract class CNAbstractController : MonoBehaviour , IPointerUpHandler, 
             pos.x = (pos.x / bgImage.rectTransform.sizeDelta.x);
             pos.y = (pos.y / bgImage.rectTransform.sizeDelta.y);
 
-            inputVector = new Vector3(pos.x * 2 + 1, pos.y * 2 - 1, 0);
-            Debug.Log("0: " + inputVector);
-            inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
+            inputVector = new Vector3(pos.x, pos.y , 0);
+            inputVector = (inputVector.magnitude > InsertDistance) ? inputVector.normalized : inputVector;
 
             joystickImage.rectTransform.anchoredPosition = new Vector3(inputVector.x * (bgImage.rectTransform.sizeDelta.x / 3),
                                                                         inputVector.y * (bgImage.rectTransform.sizeDelta.y / 3));
-
-            Debug.Log(pos);
-            Debug.Log("1: "+inputVector);
             Debug.Log(joystickImage.rectTransform.anchoredPosition);
         }
     }
