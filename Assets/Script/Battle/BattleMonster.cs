@@ -21,8 +21,12 @@ public class BattleMonster : MonoBehaviour {
         Debug.Log("Make "+SelectType + " num = "+ (int)SelectType);
         taget = (int)SelectType;
         Monster monster = CharacterMgr.GetInstance.GetMonster[(int)SelectType];
-        m_Monster = monster;
-
+        m_Monster = new Monster(monster.NAME,
+                                monster.HP,
+                                monster.MP,
+                                monster.ATK,
+                                monster.DEF,
+                                monster.EXP);
     }
 
     private void OnCollisionEnter(Collision rect)

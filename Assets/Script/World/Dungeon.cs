@@ -12,21 +12,39 @@ public enum DungeonLevel
 public class Dungeon : MonoBehaviour {
 
     GameObject m_PrefabMonster;
+    public DungeonUI DungeonUi;
+    List<GameObject> m_monster;
+    int MonsterCount;
+
     DungeonLevel m_Level = DungeonLevel.Dungeon_1;
 
-    DungeonLevel Difficulty_Lv
+    int Difficulty_Lv
     {
-        set { m_Level = value; }
-        get { return m_Level; }
+        set { m_Level = (DungeonLevel)value; }
+        get { return (int)m_Level; }
     }
 
     // Use this for initialization
     void Start () {
-		
-	}
+        if (DungeonUi != null)
+        {
+            DungeonUi.Init();
+        }
+        else
+        {
+            Debug.Log("DungeonUi is Null");
+        }
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(DungeonUi.exec == false)
+        {
+            Difficulty_Lv = DungeonUi.GetDungeonLv;
+            MonsterCount = DungeonUi.GetMonsterCount;
+            
+        }
 	}
 }

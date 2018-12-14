@@ -19,10 +19,35 @@ public class DungeonUI : MonoBehaviour {
 
     private void Start()
     {
+        Init();
+    }
+
+    public bool exec
+    {
+        get { return this.gameObject.activeSelf; }
+    }
+   
+    public int GetMonsterCount
+    {
+        get { return MonsterCounterComboBox.value; }
+    }
+
+    public int IsBoss
+    {
+        get { return IsBossComboBox.value; }
+    }
+
+    public int GetDungeonLv
+    {
+        get { return DungeonLvComboBox.value; }
+    }
+
+    public void Init()
+    {
         //default setting ui
         List<string> index = new List<string>();
 
-        for(int i = 1; i < 9; i ++)
+        for (int i = 1; i < 9; i++)
             index.Add(i.ToString());
 
         MonsterCounterComboBox.AddOptions(index);
@@ -30,8 +55,10 @@ public class DungeonUI : MonoBehaviour {
         MonsterCounterComboBox.value = 0;
         IsBossComboBox.value = 0;
         DungeonLvComboBox.value = 0;
+
+        this.transform.gameObject.SetActive(true);
     }
-    
+
     public void Complet()
     {
         Debug.Log("Press ok bt");
