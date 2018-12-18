@@ -44,6 +44,8 @@ public class DungeonUI : MonoBehaviour {
 
     public void Init()
     {
+        this.transform.gameObject.SetActive(true);
+
         //default setting ui
         List<string> index = new List<string>();
 
@@ -56,7 +58,7 @@ public class DungeonUI : MonoBehaviour {
         IsBossComboBox.value = 0;
         DungeonLvComboBox.value = 0;
 
-        this.transform.gameObject.SetActive(true);
+        
     }
 
     public void Complet()
@@ -76,20 +78,18 @@ public class DungeonUI : MonoBehaviour {
 
     public void On_Accept()
     {
-        for (int i = 0; i < MonsterCounterComboBox.value; i++)
-        {
-            prefab = Resources.Load("monster") as GameObject;
-            GameObject go = Instantiate(prefab) as GameObject;
-            BattleMonster bm = go.GetComponent<BattleMonster>();
-            list.Add(bm);
-        }
+        //for (int i = 0; i < MonsterCounterComboBox.value; i++)
+        //{
+        //    prefab = Resources.Load("monster") as GameObject;
+        //    GameObject go = Instantiate(prefab) as GameObject;
+        //    BattleMonster bm = go.GetComponent<BattleMonster>();
+        //    list.Add(bm);
+        //}
 
-        foreach(var i in list)
-        {
-            i.init();
-        }
-
-		this.gameObject.SetActive(false);
+        //foreach(var i in list)
+        //{
+        //    i.init();
+        //}
     }
 
     public void On_Rejct()

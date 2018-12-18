@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
         {
             animator.Play("DAMAGED01", -1, 0);
             this.transform.Translate(Vector3.back * 75 * Time.deltaTime);
-            CharacterMgr.GetInstance.GetPlayer.HP -= 20;
+            CharacterMgr.GetInstance.GetPlayer.HP -= CharacterMgr.GetInstance.GetMonster[0].ATK;
             Debug.Log("Collision");
         }
     }

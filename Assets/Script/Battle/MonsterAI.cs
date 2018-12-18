@@ -14,6 +14,7 @@ public class MonsterAI : MonoBehaviour {
         nav = GetComponent<NavMeshAgent>();
         Path = GameObject.Find("Path");
         Path = Path.transform.Find("Start").gameObject;
+        
         StartCoroutine(Move());
 	}
 	

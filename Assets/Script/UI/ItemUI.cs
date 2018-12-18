@@ -16,11 +16,6 @@ public class ItemUI : MonoBehaviour {
     void Start () {
         m_ItemList = ImageMgr.GetInstance.GetImageItem(eItemType.POTION_TYPE);
 
-        foreach(var list in m_ItemList)
-        {
-            Debug.Log(list);
-        }
-
         Hp_Image.sprite = m_ItemList[12]; // HP Potion Value;
         Mp_Image.sprite = m_ItemList[62]; // MP Potion Value;
     }

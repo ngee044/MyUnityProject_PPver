@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class BattleMonster : MonoBehaviour {
     Monster m_Monster;
-    public MonsterType SelectType;
     GameObject labelDmg;
+
+    public MonsterType SelectType;
     public Slider MonsterHP;
-
-    static int taget;
-
+    public GameObject Target;
+    private GameObject player;
+    public NavMeshAgent nav;
+    private NavMeshAgent m_nav;
+    int taget;
 
     private void Start()
     {
         init();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (player != null)
+            m_nav.SetDestination(player.transform.position);
+        else
+            Debug.Log("player is null " + player);
     }
 
     public void init() {
@@ -27,12 +40,19 @@ public class BattleMonster : MonoBehaviour {
                                 monster.ATK,
                                 monster.DEF,
                                 monster.EXP);
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        m_nav = GetComponent<NavMeshAgent>();
+        m_nav.speed = 1.5f;
+
+
     }
 
     private void OnCollisionEnter(Collision rect)
     {
         int dmg = 1;
-        if(rect.collider.tag == "Bullet")
+
+        if (rect.collider.tag == "Bullet")
         {
             int GetNum = Random.Range(1, 30);
             dmg = CharacterMgr.GetInstance.GetPlayer.ATK + GetNum;
@@ -50,6 +70,17 @@ public class BattleMonster : MonoBehaviour {
         CheckMonsterDown();
         StartCoroutine(SkillEffect(rect));
         Debug.Log("DMG = " + dmg + "Monster HP : " + m_Monster.HP);
+
+    }
+
+    private void OnCollisionStay(Collision rect)
+    {
+
+    }
+
+    private void OnCollisionExit(Collision rect)
+    {
+        //Player 쫒아가는 AI
     }
 
     int On_skilldamge()
@@ -68,17 +99,6 @@ public class BattleMonster : MonoBehaviour {
 
         return dmg;
     }
-
-    private void OnCollisionStay(Collision rect)
-    {
-
-    }
-
-    private void OnCollisionExit(Collision rect)
-    {
-        //Player 쫒아가는 AI
-    }
-
     IEnumerator SkillEffect(Collision rect)
     {
         yield return new WaitForSeconds(2.0f);
@@ -87,12 +107,6 @@ public class BattleMonster : MonoBehaviour {
             MonsterHP.gameObject.SetActive(false);
         }
     }
-
-    void DmgLabel(int dmg)
-    {
-
-    }
-
     void CheckMonsterDown()
     {
         if (m_Monster.HP <= 0)
@@ -105,8 +119,6 @@ public class BattleMonster : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+
+
 }
