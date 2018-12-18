@@ -130,9 +130,6 @@ public partial class MainCamera : MonoBehaviour {
 
             if (bOrgPosY)
                 camerapos.y = m_vOrgPosZone.y;
-
-
-
         }
 
         IEnumerator ShakeCoroutine()
