@@ -56,8 +56,8 @@ public class CharacterMgr : MonoBehaviour
         int atk = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Atk;
         int def = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Def;
         int exp = AccountMgr.GetInstance.GetMonsterInfo[(int)index].Exp;
-        //int type = 0;
 
+        //int type = 0;
         //if (name == "Orc")
         //    type = (int)MonsterType.eTYPE_MONSTER_ORCE;
         //else if(name == "Troll")

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     public Animator animator;
     public Rigidbody rigid;
+    WaitForSecondsRealtime timer;
     float _vertical;
     float _horizontal;
 
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour {
             this.transform.Translate(Vector3.back * 75 * Time.deltaTime);
             CharacterMgr.GetInstance.GetPlayer.HP -= CharacterMgr.GetInstance.GetMonster[0].ATK;
             Debug.Log("Collision");
+            CharacterMgr.GetInstance.GetPlayer.MontionStatus = STATUS.STATUS_DOWN;
         }
     }
 
@@ -92,9 +94,19 @@ public class PlayerController : MonoBehaviour {
     private void OnCollisionExit(Collision rect)
     {
         //충돌끝날때
+
         if (rect.collider.tag == "Collision")
         {
+            float start = Time.time;
 
+            while (true)
+            {
+                if (start + 2.75f < Time.time)
+                {
+                    CharacterMgr.GetInstance.GetPlayer.MontionStatus = STATUS.STATUS_NOMAL;
+                    break;
+                }
+            }
         }
         else if (rect.collider.tag == "ShopNpc")
         {

@@ -44,22 +44,40 @@ public class Dungeon : MonoBehaviour {
         }
     }
 
+    bool CheckMonster()
+    {
+        GameObject m = GameObject.Find("monster(Clone)");
+        if (m != null)
+            return true;
+        else
+            return false;
+    }
+
 	// Update is called once per frame
 	void Update () {
-        if(m_monster.Count <= 0 && !m_DungeonStart)
+        
+        if (!CheckMonster() && !m_DungeonStart)
         {
             //game Clear
             DungeonUi.transform.gameObject.SetActive(true);
             DungeonUi.Init();
             DungeonUi.Complet();
+
+            m_monster.Clear();
+            m_DungeonStart = true;
+
         }
 
-        if(CharacterMgr.GetInstance.GetPlayer.HP <= 0)
+        if (CharacterMgr.GetInstance.GetPlayer.HP <= 0)
         {
             //game over
             DungeonUi.transform.gameObject.SetActive(true);
             DungeonUi.Init();
             DungeonUi.Fail();
+
+            m_monster.Clear();
+            m_DungeonStart = true;
+            CharacterMgr.GetInstance.GetPlayer.HP = 1;
         }
 
 	}
@@ -74,12 +92,11 @@ public class Dungeon : MonoBehaviour {
 
         for (int i = 0; i < MonsterCount; i++)
         {
-            //m_PrefabMonster = Resources.Load("monster") as GameObject;
-            //GameObject go = Instantiate(m_PrefabMonster) as GameObject;
-            //BattleMonster bm = go.GetComponent<BattleMonster>();
-            //BattleMonster ob = GameObject.FindGameObjectWithTag("Collison");
+            m_PrefabMonster = Resources.Load("monster") as GameObject;
+            GameObject go = Instantiate(m_PrefabMonster) as GameObject;
+            BattleMonster bm = go.GetComponent<BattleMonster>();
 
-            //m_monster.Add(ob);
+            m_monster.Add(bm);
         }
 
         foreach (var i in m_monster)

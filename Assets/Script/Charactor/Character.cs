@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum STATUS
+{
+    STATUS_DOWN = -1,
+    STATUS_NOMAL = 0,
+    STATUS_ATK,
+    STATUS_RUN,
+    STATUS_END,
+}
+
 public struct Status
 {
     public string Name;
@@ -16,6 +25,13 @@ public struct Status
 public partial class Character : MonoBehaviour
 {
     protected Status status;
+    public STATUS motion = STATUS.STATUS_NOMAL;
+
+    public STATUS MontionStatus
+    {
+        set { motion = value; }
+        get { return motion; }
+    }
 
     public string NAME
     {

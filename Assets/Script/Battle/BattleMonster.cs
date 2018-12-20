@@ -28,10 +28,17 @@ public class BattleMonster : MonoBehaviour {
     {
         if (isFirst == false)
         {
-            if (player != null)
+            STATUS playermotion = CharacterMgr.GetInstance.GetPlayer.MontionStatus;
+            if (player != null && playermotion >= STATUS.STATUS_NOMAL)
+            {
                 nav.SetDestination(player.transform.position);
+                player = GameObject.FindGameObjectWithTag("Player");
+            }
             else
+            {
                 Debug.Log("player is null " + player);
+                nav.SetDestination(new Vector3(Random.Range(-20f, 20f), 0, Random.Range(-20f, 20f)) * Time.deltaTime);
+            }
         }
     }
 
@@ -47,8 +54,7 @@ public class BattleMonster : MonoBehaviour {
                                 monster.EXP);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        //m_nav = GetComponent<NavMeshAgent>();
-        //m_nav.speed = 1.5f;
+        this.transform.position = new Vector3(Random.Range(- 5.3f,12.12f), 0.03f, Random.Range(-5.9f, 6.9f));
         isFirst = false;
     }
 
@@ -66,6 +72,11 @@ public class BattleMonster : MonoBehaviour {
         else if(rect.collider.tag == "skill")
         {
             dmg = CharacterMgr.GetInstance.GetPlayer.ATK + On_skilldamge();
+            Destroy(rect.transform.gameObject);
+        }
+        else if(rect.collider.tag == "Player")
+        {
+            //주인공과 충돌하였을때
         }
 
         MonsterHP.gameObject.SetActive(true);
@@ -116,10 +127,11 @@ public class BattleMonster : MonoBehaviour {
         if (m_Monster.HP <= 0)
         {
             m_Monster = CharacterMgr.GetInstance.GetMonster[(int)SelectType];
-            Destroy(this.gameObject);
             //this.gameObject.SetActive(false);
 
             CharacterMgr.GetInstance.GetPlayer.PlayerExp += m_Monster.EXP;
+            CharacterMgr.GetInstance.GetPlayer.PlayerItem.Gold += 350;
+            Destroy(this.gameObject);
         }
     }
 
