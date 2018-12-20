@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine.UI;
 
 /// <summary>
 /// Tools for the editor
