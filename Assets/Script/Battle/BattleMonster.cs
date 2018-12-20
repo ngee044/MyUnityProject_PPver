@@ -14,20 +14,25 @@ public class BattleMonster : MonoBehaviour {
     private GameObject player;
     public NavMeshAgent nav;
     private NavMeshAgent m_nav;
+    bool isFirst;
     int taget;
 
     private void Start()
     {
+        isFirst = true;
         init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player != null)
-            m_nav.SetDestination(player.transform.position);
-        else
-            Debug.Log("player is null " + player);
+        if (isFirst == false)
+        {
+            if (player != null)
+                nav.SetDestination(player.transform.position);
+            else
+                Debug.Log("player is null " + player);
+        }
     }
 
     public void init() {
@@ -42,10 +47,9 @@ public class BattleMonster : MonoBehaviour {
                                 monster.EXP);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        m_nav = GetComponent<NavMeshAgent>();
-        m_nav.speed = 1.5f;
-
-
+        //m_nav = GetComponent<NavMeshAgent>();
+        //m_nav.speed = 1.5f;
+        isFirst = false;
     }
 
     private void OnCollisionEnter(Collision rect)
