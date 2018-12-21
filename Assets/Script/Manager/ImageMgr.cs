@@ -51,11 +51,9 @@ public class ImageMgr : MonoBehaviour
         {
             for (int j = 0; j < 16; j++)
             {
-
                 m_EquipList.Add(CutRenderValue64x64(TextureItem[0], 16, 16, i, j));
                 m_EtcList.Add(CutRenderValue64x64(TextureItem[1], 16, 16, i, j));
                 m_WeaponList.Add(CutRenderValue64x64(TextureItem[2], 16, 16, i, j));
-
             }
         }
 
@@ -96,7 +94,6 @@ public class ImageMgr : MonoBehaviour
 
     public List<Sprite> GetImageSkill()
     {
-
         return m_SkillList;
     }
 

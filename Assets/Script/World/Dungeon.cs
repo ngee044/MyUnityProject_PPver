@@ -47,6 +47,7 @@ public class Dungeon : MonoBehaviour {
     bool CheckMonster()
     {
         GameObject m = GameObject.Find("monster(Clone)");
+
         if (m != null)
             return true;
         else
@@ -79,7 +80,6 @@ public class Dungeon : MonoBehaviour {
             m_DungeonStart = true;
             CharacterMgr.GetInstance.GetPlayer.HP = 1;
         }
-
 	}
 
     public void OnDungeonInfo()

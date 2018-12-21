@@ -57,8 +57,6 @@ public class DungeonUI : MonoBehaviour {
         MonsterCounterComboBox.value = 0;
         IsBossComboBox.value = 0;
         DungeonLvComboBox.value = 0;
-
-        
     }
 
     public void Complet()
