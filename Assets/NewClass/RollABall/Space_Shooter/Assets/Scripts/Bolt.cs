@@ -15,7 +15,8 @@ public class Bolt : MonoBehaviour {
 
     void OnColliderEnter(Collider target)
     {
-        Destroy(target);
-        Destroy(transform);
+        Destroy(target.gameObject);
+        Destroy(this.transform.gameObject);
     }
+
 }
