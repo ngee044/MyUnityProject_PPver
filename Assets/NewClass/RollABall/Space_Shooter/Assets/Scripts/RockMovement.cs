@@ -17,13 +17,14 @@ public class RockMovement : MonoBehaviour {
 
     private void OnEnable()
     {
-        rb.angularVelocity = Random.onUnitSphere * AngularSpeed;
-        rb.velocity = Vector3.back * Speed;
+        rb.angularVelocity = Random.onUnitSphere * AngularSpeed; //회전 속도 설정
+        rb.velocity = Vector3.back * Speed; //속도 설정
     }
 
-    void OntriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("PlayerBolt"))
+        if (other.gameObject.CompareTag("Player") || 
+            other.gameObject.CompareTag("PlayerBolt"))
         {
             if(other.gameObject.CompareTag("Player"))
             {
@@ -36,16 +37,4 @@ public class RockMovement : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
-
-	// Use this for initialization
-	void Start () {
-        
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
 }
