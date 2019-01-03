@@ -64,4 +64,15 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, 0, Hori * -TiltAmount); // 비행기 좌, 우 회전
         rb.position = new Vector3(Mathf.Clamp(rb.position.x, xMin, xMax), 0, Mathf.Clamp(rb.position.z, zMin, zMax)); //맵을 벗어나지 못하게 하는 조건
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            //game over
+            Debug.Log("Game Over");
+            other.gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
 }

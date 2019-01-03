@@ -10,7 +10,7 @@ public class Bolt : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.forward * Speed;
+        rb.velocity = transform.forward * Speed;
 	}
 
     void OnColliderEnter(Collider target)
