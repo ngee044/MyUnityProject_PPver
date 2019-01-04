@@ -26,15 +26,11 @@ public class RockMovement : MonoBehaviour {
         if (other.gameObject.CompareTag("Player") || 
             other.gameObject.CompareTag("PlayerBolt"))
         {
-            if(other.gameObject.CompareTag("Player"))
-            {
-                //game over
-                Destroy(other.gameObject);
-                Debug.Log("Game Over");
-                return;
-            }
-            Debug.Log("Add Score");
-            Destroy(this.gameObject);
+            GameController.Instance.AddScore(1);
+            GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ROCK_TYPE);
+            effect.transform.position = this.transform.position;
+            this.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
     }
 }

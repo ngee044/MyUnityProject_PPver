@@ -3,33 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
+    public static GameController Instance;
 
     public RockMovement[] RockPrefabs;
-    public EnemyController EnemyCtrl;
-
     private const float RELOAD_TIME = 5;
     private float currentReloadTime;
 
     private Coroutine routine;
 
-	// Use this for initialization
-	void Start () {
-        currentReloadTime = 0;
-        StartCoroutine(SpawnRoutine());
-        //routine = StartCoroutine(SpawnRoutine(1.0f));
-        
-    }
+    public EnemyPool enemyPool;
+    public RockPool rockPool;
 
-    private IEnumerator Test()
+    private int score;
+
+    void Awake()
     {
-        while (true)
+        if(Instance == null)
         {
-            Debug.Log("^^^^");
-            yield return new WaitForSeconds(3);
-            Debug.Log("#$#$#$");
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 
+	// Use this for initialization
+	void Start () {
+        currentReloadTime = 0;
+        score = 0;
+        routine = StartCoroutine(SpawnRoutine());
+        //routine = StartCoroutine(SpawnRoutine(1.0f));
+    }
 
     private IEnumerator SpawnRoutine()
     {
@@ -40,7 +45,7 @@ public class GameController : MonoBehaviour {
         {
             for (int i = 0; i < 5; i++)
             {
-                RockMovement newAst = Instantiate(RockPrefabs[Random.Range(0, RockPrefabs.Length)]);
+                RockMovement newAst = rockPool.GetFromPool();
                 newAst.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16); //위치 설정
                 //위치 배치 (x = -5 ~ 5/ z = 16)
                 yield return PointThree;
@@ -48,7 +53,7 @@ public class GameController : MonoBehaviour {
 
             for(int i= 0; i < 2; i++)
             {
-                var newEnemy = Instantiate(EnemyCtrl);
+                var newEnemy = enemyPool.GetFromPool();
                 newEnemy.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16);
                 yield return PointThree;
             }
@@ -57,8 +62,20 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void AddScore(int amount)
+    {
+        score += amount;
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+        StopCoroutine(routine);
+    }
+
 	// Update is called once per frame
 	void Update () {
+        #region Study Code
         //if (currentReloadTime <= 0)
         //{
         //    for (int i = 0; i < 5; i++)
@@ -95,6 +112,7 @@ public class GameController : MonoBehaviour {
         //gameObject.SetActive(false);
         ////~~~~~~~
         //gameObject.SetActive(true);
+        #endregion
     }
 
     private void OnDisable()

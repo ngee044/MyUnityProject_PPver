@@ -12,11 +12,4 @@ public class Bolt : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * Speed;
 	}
-
-    void OnColliderEnter(Collider target)
-    {
-        Destroy(target.gameObject);
-        Destroy(this.transform.gameObject);
-    }
-
 }

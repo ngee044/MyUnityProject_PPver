@@ -8,23 +8,23 @@ public class EnemyController : MonoBehaviour {
     private float Speed;
     public Transform FirePosition;
     public Bolt boltPrefab;
+    public BoltPool boltPool;
 
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
         rb = GetComponent<Rigidbody>();
-        Speed = Random.Range(1.5f, 2.5f);
+        Speed = Random.Range(2.5f, 5.5f);
     }
 
     private void OnEnable()
     {
         StartCoroutine(EnemyAttack());
+        StartCoroutine(Evaid());
+        SetDefaultSpeed(); //속도 설정
     }
 
     void Start() {
-        StartCoroutine(EnemyAttack());
-        StartCoroutine(Evaid());
-        SetDefaultSpeed(); //속도 설정
     }
 
     void SetDefaultSpeed()
@@ -34,12 +34,16 @@ public class EnemyController : MonoBehaviour {
 
     void SetEvaidMovement()
     {
-        float EvaidSpeed = Random.Range(1.5f, 2.5f);
+        float EvaidSpeed = Random.Range(2.5f, 5.5f);
 
         if (rb.position.x > 0)
+        {
             rb.velocity = new Vector3(-EvaidSpeed, 0, rb.velocity.z);
+        }
         else
+        {
             rb.velocity = new Vector3(EvaidSpeed, 0, rb.velocity.z);
+        }
     }
 
     IEnumerator Evaid()
@@ -62,9 +66,13 @@ public class EnemyController : MonoBehaviour {
         {
             WaitForSeconds Delay = new WaitForSeconds(Random.Range(0.8f, 1.2f));
 
-            Bolt bolt = Instantiate(boltPrefab);
-            bolt.transform.position = FirePosition.transform.position;
-            //bolt.transform.rotation = gameObject.transform.rotation;
+            
+            if (boltPool != null)
+            {
+                Bolt bolt = boltPool.GetFromPool();
+                bolt.transform.position = FirePosition.transform.position;
+                //bolt.transform.rotation = gameObject.transform.rotation;
+            }
             yield return Delay;
         }
     }
@@ -74,15 +82,16 @@ public class EnemyController : MonoBehaviour {
         if (other.gameObject.CompareTag("Player") ||
             other.gameObject.CompareTag("PlayerBolt"))
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                //game over
-                Destroy(other.gameObject);
-                Debug.Log("Game Over");
-                return;
-            }
-            Debug.Log("Add Score");
-            Destroy(this.gameObject);
+            GameController.Instance.AddScore(1);
+            GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ENEMY_TYPE);
+            effect.transform.position = this.transform.position;
+            other.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
+    }
+
+    public void setBoltPool(BoltPool P)
+    {
+        boltPool = P;
     }
 }

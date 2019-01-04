@@ -10,10 +10,8 @@ public class PlayerController : MonoBehaviour {
     public float xMax, xMin;
     public float zMax, zMin;
 
-    public Bolt playerBoltPrefab;
+    public BoltPool PlayerBoltPool;
     public Transform FirePosition;
-
-    Bolt bolt;
 
     private float CurrentReLoadTime;
     public float ReLoadTime;
@@ -44,10 +42,9 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetButton("Fire1"))
         {
-
             if (CurrentReLoadTime <= 0)
             {
-                Bolt newBolt = Instantiate(playerBoltPrefab);
+                Bolt newBolt = PlayerBoltPool.GetFromPool();
                 newBolt.transform.position = FirePosition.position;
                 CurrentReLoadTime = ReLoadTime;
             }
@@ -65,14 +62,10 @@ public class PlayerController : MonoBehaviour {
         rb.position = new Vector3(Mathf.Clamp(rb.position.x, xMin, xMax), 0, Mathf.Clamp(rb.position.z, zMin, zMax)); //맵을 벗어나지 못하게 하는 조건
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDisable()
     {
-        if(other.gameObject.CompareTag("Enemy"))
-        {
-            //game over
-            Debug.Log("Game Over");
-            other.gameObject.SetActive(false);
-            Destroy(gameObject);
-        }
+        GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.PLAYER_TYPE);
+        effect.transform.position = this.transform.position;
+        GameController.Instance.GameOver();
     }
 }
