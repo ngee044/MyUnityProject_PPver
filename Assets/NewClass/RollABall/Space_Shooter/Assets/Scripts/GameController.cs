@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
     public static GameController Instance;
-
+    public UIController uiController;
     public RockMovement[] RockPrefabs;
     private const float RELOAD_TIME = 5;
     private float currentReloadTime;
@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour {
         currentReloadTime = 0;
         score = 0;
         routine = StartCoroutine(SpawnRoutine());
+        SoundController.Instance.PlayeBGM(eBGMClips.BG01_BACKGROUND);
         //routine = StartCoroutine(SpawnRoutine(1.0f));
     }
 
@@ -65,12 +66,14 @@ public class GameController : MonoBehaviour {
     public void AddScore(int amount)
     {
         score += amount;
+        uiController.ShowScore(score);
     }
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
-        StopCoroutine(routine);
+        uiController.ShowSatusMessage("Game Over...");
+        if (routine != null)
+            StopCoroutine(routine);
     }
 
 	// Update is called once per frame

@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour {
             if (CurrentReLoadTime <= 0)
             {
                 Bolt newBolt = PlayerBoltPool.GetFromPool();
+                SoundController.Instance.PlayeEffectSound(eEffectClips.WeaponPlayer);
                 newBolt.transform.position = FirePosition.position;
                 CurrentReLoadTime = ReLoadTime;
             }
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour {
     private void OnDisable()
     {
         GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.PLAYER_TYPE);
+        SoundController.Instance.PlayeEffectSound(eEffectClips.ExpPlayer);
         effect.transform.position = this.transform.position;
         GameController.Instance.GameOver();
     }

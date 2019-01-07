@@ -29,6 +29,7 @@ public class RockMovement : MonoBehaviour {
             GameController.Instance.AddScore(1);
             GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ROCK_TYPE);
             effect.transform.position = this.transform.position;
+            SoundController.Instance.PlayeEffectSound(eEffectClips.ExpRock);
             this.gameObject.SetActive(false);
             other.gameObject.SetActive(false);
         }
