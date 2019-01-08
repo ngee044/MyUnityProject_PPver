@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour {
     public Transform FirePosition;
     public Bolt boltPrefab;
     public BoltPool boltPool;
+    private PlayerController player;
 
 
     // Use this for initialization
@@ -65,14 +66,12 @@ public class EnemyController : MonoBehaviour {
         while (true)
         {
             WaitForSeconds Delay = new WaitForSeconds(Random.Range(0.8f, 1.2f));
-
             
             if (boltPool != null)
             {
                 Bolt bolt = boltPool.GetFromPool();
                 SoundController.Instance.PlayeEffectSound(eEffectClips.WeaponEnemy);
                 bolt.transform.position = FirePosition.transform.position;
-                //bolt.transform.rotation = gameObject.transform.rotation;
             }
             yield return Delay;
         }
@@ -87,7 +86,19 @@ public class EnemyController : MonoBehaviour {
             GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ENEMY_TYPE);
             effect.transform.position = this.transform.position;
             SoundController.Instance.PlayeEffectSound(eEffectClips.ExpEnemy);
-            other.gameObject.SetActive(false);
+            
+            if (other.gameObject.CompareTag("Player"))
+            {
+                if(player == null)
+                {
+                    player = other.gameObject.GetComponent<PlayerController>();
+                }
+                player.Hit(1);
+            }
+            else
+            {
+                other.gameObject.SetActive(false);
+            }
             gameObject.SetActive(false);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
     public static GameController Instance;
@@ -13,8 +14,10 @@ public class GameController : MonoBehaviour {
 
     public EnemyPool enemyPool;
     public RockPool rockPool;
+    public BGScroller[] BGs;
 
     private int score;
+    public GameObject Player;
 
     void Awake()
     {
@@ -41,25 +44,45 @@ public class GameController : MonoBehaviour {
     {
         WaitForSeconds PointThree = new WaitForSeconds(0.3f);
         WaitForSeconds ReloadTime = new WaitForSeconds(RELOAD_TIME);
-
+        int enemyCount = 3;
+        int RockCount = 5;
         while (true)
         {
-            for (int i = 0; i < 5; i++)
+            if(enemyCount > 0 && RockCount > 0)
+            {
+                int currentRand = Random.Range(0, 2);
+                if(currentRand == 0)
+                {
+                    RockMovement newAst = rockPool.GetFromPool();
+                    newAst.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16); //위치 설정
+                    RockCount--;
+                    yield return PointThree;
+                }
+                else
+                {
+                    EnemyController newEnemy = enemyPool.GetFromPool();
+                    newEnemy.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16);
+                    enemyCount--;
+                    yield return PointThree;
+                }
+            }
+            else if(enemyCount > 0)
+            {
+                EnemyController newEnemy = enemyPool.GetFromPool();
+                newEnemy.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16);
+                enemyCount--;
+                RockCount = 5;
+                yield return PointThree;
+            }
+            else
             {
                 RockMovement newAst = rockPool.GetFromPool();
                 newAst.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16); //위치 설정
-                //위치 배치 (x = -5 ~ 5/ z = 16)
+                RockCount--;
+                enemyCount = 3;
                 yield return PointThree;
             }
-
-            for(int i= 0; i < 2; i++)
-            {
-                var newEnemy = enemyPool.GetFromPool();
-                newEnemy.transform.position = new Vector3(Random.Range(-5f, 5f), 0, 16);
-                yield return PointThree;
-            }
-
-            yield return ReloadTime;
+            //yield return ReloadTime;
         }
     }
 
@@ -72,8 +95,15 @@ public class GameController : MonoBehaviour {
     public void GameOver()
     {
         uiController.ShowSatusMessage("Game Over...");
+        uiController.RestartButton.gameObject.SetActive(true);
         if (routine != null)
+        {
             StopCoroutine(routine);
+            for(int i = 0; i < BGs.Length; i++)
+            {
+                BGs[i].SetSpeed(0);
+            }
+        }
     }
 
 	// Update is called once per frame
@@ -121,5 +151,19 @@ public class GameController : MonoBehaviour {
     private void OnDisable()
     {
         routine = null;
+    }
+
+    public void on_ResetButton_clicked()
+    {
+        SceneManager.LoadScene(0);
+        //routine = StartCoroutine(SpawnRoutine());
+        //uiController.ShowSatusMessage("");
+        //uiController.ShowScore(0);
+        //for (int i = 0; i < BGs.Length; i++)
+        //{
+        //    BGs[i].SetSpeed(2);
+        //}
+        //Player.SetActive(true);
+        //Player.transform.position = new Vector3(0, 0, 0);
     }
 }

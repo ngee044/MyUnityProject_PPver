@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectPool<T> : MonoBehaviour {
 
-    public GameObject Prefab { get; set; }
+    public T Prefab { get; set; }
     private List<T> Pool;
 
     // Use this for initialization
@@ -17,7 +17,7 @@ public class ObjectPool<T> : MonoBehaviour {
     {
         for (int i = 0; i < Pool.Count; i++)
         {
-            if (!Pool[i].gameObject.activeInHierarchy)
+            if (!Pool[i].transform.gameObject.activeInHierarchy)
             {
                 Pool[i].gameObject.SetActive(true);
                 return Pool[i];

@@ -12,9 +12,13 @@ public class PlayerController : MonoBehaviour {
 
     public BoltPool PlayerBoltPool;
     public Transform FirePosition;
+    public UIController uicontroller;
 
     private float CurrentReLoadTime;
     public float ReLoadTime;
+
+    public int MaxHP;
+    private int currentHp;
 
 	// Use this for initialization
 	void Start () {
@@ -29,12 +33,17 @@ public class PlayerController : MonoBehaviour {
             TiltAmount = 30;
     }
 
+    void OnEnable()
+    {
+        currentHp = MaxHP;
+        uicontroller.ShowHpBar(1);
+    }
+
 	// Update is called once per frame
 	void Update () {
         PlayerMoveEvent();
         FireEvent();
     }
-
     //
     //Game Event Function
     //
@@ -65,10 +74,20 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("EnemyBolt"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            gameObject.SetActive(false);
+            Hit(1);
+            other.gameObject.SetActive(false);
         }
+    }
+
+    public void Hit(int dmg)
+    {
+        currentHp -= dmg;
+        Debug.Log(currentHp + " is damage");
+        uicontroller.ShowHpBar((float)currentHp / MaxHP);
+        if (currentHp <= 0)
+            this.gameObject.SetActive(false);
     }
 
     private void OnDisable()

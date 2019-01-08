@@ -7,6 +7,7 @@ public class RockMovement : MonoBehaviour {
     private float AngularSpeed;
     private Rigidbody rb;
     private float Speed;
+    private PlayerController player;
 
     private void Awake()
     {
@@ -30,8 +31,19 @@ public class RockMovement : MonoBehaviour {
             GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ROCK_TYPE);
             effect.transform.position = this.transform.position;
             SoundController.Instance.PlayeEffectSound(eEffectClips.ExpRock);
-            this.gameObject.SetActive(false);
-            other.gameObject.SetActive(false);
+            if (other.gameObject.CompareTag("Player"))
+            {
+                if (player == null)
+                {
+                    player = other.gameObject.GetComponent<PlayerController>();
+                }
+                player.Hit(1);
+            }
+            else
+            {
+                other.gameObject.SetActive(false);
+            }
+            gameObject.SetActive(false);
         }
     }
 }
