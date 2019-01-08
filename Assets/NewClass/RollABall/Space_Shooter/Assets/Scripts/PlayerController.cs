@@ -63,6 +63,14 @@ public class PlayerController : MonoBehaviour {
         rb.position = new Vector3(Mathf.Clamp(rb.position.x, xMin, xMax), 0, Mathf.Clamp(rb.position.z, zMin, zMax)); //맵을 벗어나지 못하게 하는 조건
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("EnemyBolt"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnDisable()
     {
         GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.PLAYER_TYPE);
