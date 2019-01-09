@@ -2,31 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : MonoBehaviour {
+public class ObjectPool<T> : MonoBehaviour where T : Component {
 
-    public T Prefab { get; set; }
-    private List<T> Pool;
+    [SerializeField]
+    protected T[] OriginArr;
+    protected List<T>[] Pool;
+    public bool IsLoaded
+    {
+        get { return isLoaded; }
+    }
+    protected bool isLoaded;
 
-    // Use this for initialization
-    void Start () {
-        Pool = new List<T>();
+    protected virtual void Awake()
+    {
+        isLoaded = false;
     }
 
-#if false
-    public T GetFromPool()
+    protected void SetPoolOrigin<A> (string path) where A : T
     {
-        for (int i = 0; i < Pool.Count; i++)
+        OriginArr = Resources.LoadAll<A>(path);
+        Pool = new List<T>[OriginArr.Length];
+        for(int i = 0; i< OriginArr.Length; i++)
         {
-            if (!Pool[i].transform.gameObject.activeInHierarchy)
+            Pool[i] = new List<T>();
+        }
+        isLoaded = true;
+    }
+
+    public virtual T GetFromPool(int idx)
+    {
+        for (int i = 0; i < Pool[idx].Count; i++)
+        {
+            if (!Pool[idx][i].gameObject.activeInHierarchy)
             {
-                Pool[i].gameObject.SetActive(true);
-                return Pool[i];
+                Pool[idx][i].gameObject.SetActive(true);
+                return Pool[idx][i];
             }
         }
 
-        T temp = Instantiate(Prefab);
-        Pool.Add(temp);
+        T temp = Instantiate(OriginArr[idx]);
+        Pool[idx].Add(temp);
         return temp;
     }
-#endif
 }

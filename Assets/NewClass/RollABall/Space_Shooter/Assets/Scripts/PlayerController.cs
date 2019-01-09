@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    private Rigidbody rb;
     public float Speed;
     public float TiltAmount;
     public float xMax, xMin;
     public float zMax, zMin;
-
-    public BoltPool PlayerBoltPool;
-    public Transform FirePosition;
-    public UIController uicontroller;
-
     private float CurrentReLoadTime;
     public float ReLoadTime;
 
+    private Rigidbody rb;
+    public Transform FirePosition;
+    public UIController uicontroller;
+    public BoltPool PlayerBoltPool;
+    public Bomb bomb;
+
     public int MaxHP;
     private int currentHp;
+    private int boltIndex;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
         CurrentReLoadTime = 0;
         this.transform.position = new Vector3(0, 2, 0);
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour {
     {
         currentHp = MaxHP;
         uicontroller.ShowHpBar(1);
+        boltIndex = 0;
     }
 
 	// Update is called once per frame
@@ -53,13 +55,18 @@ public class PlayerController : MonoBehaviour {
         {
             if (CurrentReLoadTime <= 0)
             {
-                Bolt newBolt = PlayerBoltPool.GetFromPool();
+                Bolt newBolt = PlayerBoltPool.GetFromPool(boltIndex);
                 SoundController.Instance.PlayeEffectSound(eEffectClips.WeaponPlayer);
                 newBolt.transform.position = FirePosition.position;
                 CurrentReLoadTime = ReLoadTime;
             }
         }
         CurrentReLoadTime -= Time.deltaTime;
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            bomb.gameObject.SetActive(true);
+        }
     }
 
     private void PlayerMoveEvent()
@@ -85,6 +92,7 @@ public class PlayerController : MonoBehaviour {
     {
         currentHp -= dmg;
         Debug.Log(currentHp + " is damage");
+        boltIndex = 0;
         uicontroller.ShowHpBar((float)currentHp / MaxHP);
         if (currentHp <= 0)
             this.gameObject.SetActive(false);
@@ -96,5 +104,26 @@ public class PlayerController : MonoBehaviour {
         SoundController.Instance.PlayeEffectSound(eEffectClips.ExpPlayer);
         effect.transform.position = this.transform.position;
         GameController.Instance.GameOver();
+    }
+
+    public void GetItem(eItemType type)
+    {
+        switch (type)
+        {
+            case eItemType.powerUp:
+                boltIndex = 1;
+                break;
+
+            case eItemType.Life:
+                currentHp++;
+                if (currentHp > MaxHP)
+                    currentHp = MaxHP;
+                uicontroller.ShowHpBar((float)currentHp / MaxHP);
+                break;
+
+            default:
+                Debug.Log("Item Type Value = " + type + "  Unknwon!!");
+                break;
+        }
     }
 }

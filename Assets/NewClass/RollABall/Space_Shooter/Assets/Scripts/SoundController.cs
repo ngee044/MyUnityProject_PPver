@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum eBGMClips
 {
@@ -42,6 +43,16 @@ public class SoundController : MonoBehaviour {
     public void PlayeEffectSound(eEffectClips id)
     {
         Effect.PlayOneShot(EffectClip[(int)id]);
+    }
+
+    public void SetBgmVolum(Slider ui)
+    {
+        BGM.volume = ui.value;
+    }
+
+    public void SetEeffectVolum(Slider ui)
+    {
+        Effect.volume = ui.value;
     }
 
     void Start()

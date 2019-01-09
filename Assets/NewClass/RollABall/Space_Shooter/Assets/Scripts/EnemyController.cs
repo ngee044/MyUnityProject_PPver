@@ -25,6 +25,11 @@ public class EnemyController : MonoBehaviour {
         SetDefaultSpeed(); //속도 설정
     }
 
+    private void OnDisable()
+    {
+        
+    }
+
     void Start() {
     }
 
@@ -69,7 +74,7 @@ public class EnemyController : MonoBehaviour {
             
             if (boltPool != null)
             {
-                Bolt bolt = boltPool.GetFromPool();
+                Bolt bolt = boltPool.GetFromPool(0);
                 SoundController.Instance.PlayeEffectSound(eEffectClips.WeaponEnemy);
                 bolt.transform.position = FirePosition.transform.position;
             }
