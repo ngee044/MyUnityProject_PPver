@@ -21,4 +21,9 @@ public class BGTextureScroller : MonoBehaviour {
         float offset = Time.time * scrollSpeed;
         mat.mainTextureOffset += new Vector2(0, scrollSpeed * Time.deltaTime);
     }
+
+    private void OnDisable()
+    {
+        this.gameObject.SetActive(true);
+    }
 }

@@ -6,6 +6,7 @@ public class EnemyPool : MonoBehaviour {
 
     public BoltPool BoltPool;
     public EnemyController Prefab;
+    public ItemPool itemPool;
     private List<EnemyController> Pool;
 
     void Start()
@@ -26,6 +27,7 @@ public class EnemyPool : MonoBehaviour {
 
         EnemyController temp = Instantiate(Prefab);
         temp.setBoltPool(BoltPool);
+        temp.SetItemPool(itemPool);
         Pool.Add(temp);
         return temp;
     }

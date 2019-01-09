@@ -16,8 +16,8 @@ public class ItemMovement : MonoBehaviour {
 
     private void Awake()
     {
-        Speed = Random.Range(2, 5);
-        AngularSpeed = Random.Range(5, 10);
+        Speed = Random.Range(5, 7);
+        AngularSpeed = Random.Range(7, 12);
         rb = GetComponent<Rigidbody>();
     }
 
@@ -38,5 +38,4 @@ public class ItemMovement : MonoBehaviour {
             gameObject.SetActive(false);
         }
     }
-
 }

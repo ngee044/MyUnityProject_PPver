@@ -6,6 +6,7 @@ public class RockPool : MonoBehaviour {
     
     public RockMovement[] Prefab;
     private List<RockMovement>[] Pool;
+    public ItemPool itemPool;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class RockPool : MonoBehaviour {
         }
 
         RockMovement temp = Instantiate(Prefab[idx]);
+        temp.SetItemPool(itemPool);
         Pool[idx].Add(temp);
         return temp;
     }

@@ -8,12 +8,30 @@ public class RockMovement : MonoBehaviour {
     private Rigidbody rb;
     private float Speed;
     private PlayerController player;
+    public ItemPool itemPool;
 
     private void Awake()
     {
         Speed = Random.Range(2, 10);
         AngularSpeed = Random.Range(5, 10);
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnDisable()
+    {
+        GameController.Instance.AddScore(1);
+        GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ROCK_TYPE);
+        effect.transform.position = this.transform.position;
+        SoundController.Instance.PlayeEffectSound(eEffectClips.ExpRock);
+
+        int getItem = 0;
+        getItem = Random.Range(0, 100);
+        if (getItem <= 30)
+        {
+            int idx = Random.Range(0, 2);
+            ItemMovement newItem = itemPool.GetFromPool(idx);
+            newItem.transform.position = this.transform.position;
+        }
     }
 
     private void OnEnable()
@@ -27,10 +45,6 @@ public class RockMovement : MonoBehaviour {
         if (other.gameObject.CompareTag("Player") || 
             other.gameObject.CompareTag("PlayerBolt"))
         {
-            GameController.Instance.AddScore(1);
-            GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ROCK_TYPE);
-            effect.transform.position = this.transform.position;
-            SoundController.Instance.PlayeEffectSound(eEffectClips.ExpRock);
             if (other.gameObject.CompareTag("Player"))
             {
                 if (player == null)
@@ -45,5 +59,10 @@ public class RockMovement : MonoBehaviour {
             }
             gameObject.SetActive(false);
         }
+    }
+
+    public void SetItemPool(ItemPool P)
+    {
+        itemPool = P;
     }
 }

@@ -9,8 +9,8 @@ public class EnemyController : MonoBehaviour {
     public Transform FirePosition;
     public Bolt boltPrefab;
     public BoltPool boltPool;
+    public ItemPool itemPool;
     private PlayerController player;
-
 
     // Use this for initialization
     void Awake () {
@@ -27,7 +27,19 @@ public class EnemyController : MonoBehaviour {
 
     private void OnDisable()
     {
-        
+        GameController.Instance.AddScore(1);
+        GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ENEMY_TYPE);
+        effect.transform.position = this.transform.position;
+        SoundController.Instance.PlayeEffectSound(eEffectClips.ExpEnemy);
+
+        int getItem = 0;
+        getItem = Random.Range(0, 100);
+        if (getItem <= 30)
+        {
+            int idx = Random.Range(0, 2);
+            ItemMovement newItem = itemPool.GetFromPool(idx);
+            newItem.transform.position = this.transform.position;
+        }
     }
 
     void Start() {
@@ -86,12 +98,7 @@ public class EnemyController : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player") ||
             other.gameObject.CompareTag("PlayerBolt"))
-        {
-            GameController.Instance.AddScore(1);
-            GameObject effect = EffectPool.Instance.GetFromPool((int)eTYPE_EFFECT.ENEMY_TYPE);
-            effect.transform.position = this.transform.position;
-            SoundController.Instance.PlayeEffectSound(eEffectClips.ExpEnemy);
-            
+        {            
             if (other.gameObject.CompareTag("Player"))
             {
                 if(player == null)
@@ -111,5 +118,10 @@ public class EnemyController : MonoBehaviour {
     public void setBoltPool(BoltPool P)
     {
         boltPool = P;
+    }
+
+    public void SetItemPool(ItemPool P)
+    {
+        itemPool = P;
     }
 }

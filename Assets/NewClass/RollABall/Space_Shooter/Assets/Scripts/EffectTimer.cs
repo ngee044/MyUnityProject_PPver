@@ -6,7 +6,7 @@ public class EffectTimer : MonoBehaviour {
 
     public float Timer;
 
-    void OnEnableI()
+    void OnEnable()
     {
         StartCoroutine(SleepAfter());
     }
@@ -14,7 +14,7 @@ public class EffectTimer : MonoBehaviour {
     private IEnumerator SleepAfter()
     {
         yield return new WaitForSeconds(Timer);
-        gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 	
 }

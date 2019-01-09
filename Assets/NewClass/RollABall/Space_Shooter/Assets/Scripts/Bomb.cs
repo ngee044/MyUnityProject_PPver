@@ -7,9 +7,9 @@ public class Bomb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("EnemyBolt") ||
-            other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Player") == false)
         {
+            Debug.Log(other);
             other.gameObject.SetActive(false);
         }
     }

@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
     public static GameController Instance;
     public UIController uiController;
     public RockMovement[] RockPrefabs;
-    private const float RELOAD_TIME = 5;
+    private const float RELOAD_TIME = 1.5f;
     private float currentReloadTime;
 
     private Coroutine routine;
@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour {
                 enemyCount = 3;
                 yield return PointThree;
             }
-            //yield return ReloadTime;
+            yield return ReloadTime;
         }
     }
 
