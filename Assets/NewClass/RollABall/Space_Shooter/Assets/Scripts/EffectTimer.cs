@@ -5,7 +5,7 @@ using UnityEngine;
 public class EffectTimer : MonoBehaviour {
 
     public float Timer;
-
+    
     void OnEnable()
     {
         StartCoroutine(SleepAfter());

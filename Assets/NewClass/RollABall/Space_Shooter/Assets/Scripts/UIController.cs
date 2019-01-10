@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour {
     public Text ScoreText, GameStatusText;
     public Button RestartButton;
     public Image HpBar;
+    public Image BossHpBar;
 
 	// Use this for initialization
 	void Start () {
