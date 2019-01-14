@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
-        speed = 2f;
+        speed = 1f;
     }
 
     void OnEnable()
