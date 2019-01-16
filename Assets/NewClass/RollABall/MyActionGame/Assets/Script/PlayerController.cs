@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         {
             this.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else
+        else if (Hori > 0)
         {
             this.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public void Hit(float value)
     {
         Debug.Log("Player Hit " + value.ToString());
+        status.Hp -= value;
     }
 
     public void AttackTarget(GameObject target)

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Status
 {
-    public int Hp;
-    public int MaxHp;
-    public int Mp;
-    public int MaxMp;
-    public int atk;
+    public float Hp { get; set; }
+    public float MaxHp { get; set; }
+    public float Mp { get; set; }
+    public float MaxMp { get; set; }
+    public float atk { get; set; }
 
-    public Status(int hp, int mp, int Atk)
+    public Status(float hp, float mp, float Atk)
     {
         Hp = MaxHp = hp;
         Mp = MaxMp = mp;
@@ -44,8 +44,6 @@ public class EnemyController : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
         speed = 1f;
-        MotionStep = 3;
-
         status = new Status(50, 10, 1);
     }
 
@@ -56,10 +54,12 @@ public class EnemyController : MonoBehaviour
 
     public void StartMove()
     {
+        MotionStep = 3;
         status.Hp = status.MaxHp;
         rb2D.velocity = transform.right * speed;
-        Ani.SetBool(AnimationHashList.IsWalkHash, true);
         Ani.SetBool(AnimationHashList.IsWalkHash, false);
+        Ani.SetBool(AnimationHashList.IsDeadHash, false);
+        Ani.SetBool(AnimationHashList.IsAttackHash, false);
         StartCoroutine(EnemyState());
         
     }
@@ -70,10 +70,10 @@ public class EnemyController : MonoBehaviour
 
         while (true)
         {
+            MotionStep--;
             switch (eTypeMotion)
             {
                 case eEnermyState.Idle:
-                    MotionStep--;
                     if (MotionStep <= 0)
                     {
                         eTypeMotion = eEnermyState.Walk;
@@ -95,7 +95,6 @@ public class EnemyController : MonoBehaviour
                     if (MotionStep <= 0)
                     {
                         Ani.SetBool(AnimationHashList.IsAttackHash, true);
-                        player.Hit(1);
                         MotionStep = 2;
                     }
                     break;
@@ -129,6 +128,7 @@ public class EnemyController : MonoBehaviour
     public void FinishAttack()
     {
         Ani.SetBool(AnimationHashList.IsAttackHash, false);
+        player.Hit(1);
     }
 
     public void Dead()
@@ -136,14 +136,14 @@ public class EnemyController : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void Hit(int value)
+    public void Hit(float value)
     {
         status.Hp -= value;
         Debug.Log("Enemy Hit " + value.ToString());
         if(status.Hp <= 0)
         {
             //dead
-
+            eTypeMotion = eEnermyState.Dead;
             Ani.SetBool(AnimationHashList.IsDeadHash, true);
         }
     }
@@ -159,9 +159,10 @@ public class EnemyController : MonoBehaviour
             player.Hit(1);
             eTypeMotion = eEnermyState.Attack;
             MotionStep = 2;
-            rb2D.velocity = Vector3.zero;
             Ani.SetBool(AnimationHashList.IsWalkHash, false);
             Ani.SetBool(AnimationHashList.IsAttackHash, true);
+
+            //rb2D.velocity = Vector3.zero;
         }
     }
 }
