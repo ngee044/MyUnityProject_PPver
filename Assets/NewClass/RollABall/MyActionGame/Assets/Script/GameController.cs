@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
         int count = 0;
         while(true)
         {
-            if (count > MaxEnemyCount)
+            if (false)//(count > MaxEnemyCount)
             {
 
             }
