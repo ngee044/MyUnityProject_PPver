@@ -6,12 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     private Animator Ani;
     private Rigidbody2D rb;
-
+    private Status status;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
+        status = new Status(500, 100, 30);
     }
 
     // Update is called once per frame
@@ -46,6 +47,6 @@ public class PlayerController : MonoBehaviour
 
     public void AttackTarget(GameObject target)
     {
-        target.SendMessage("Hit", 1);
+        target.SendMessage("Hit", status.atk);
     }
 }

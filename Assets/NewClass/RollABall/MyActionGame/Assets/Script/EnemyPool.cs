@@ -28,6 +28,11 @@ public class EnemyPool : MonoBehaviour
             Destroy(GetInstance);
     }
 
+    public int GetIndexCount()
+    {
+        return enemyPrefabs.Length;
+    }
+
     public EnemyController GetFromPool(int index)
     {
         for(int i = 0; i < Pool[index].Count; i++)
