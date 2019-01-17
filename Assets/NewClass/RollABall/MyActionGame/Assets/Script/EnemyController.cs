@@ -36,6 +36,8 @@ public class EnemyController : MonoBehaviour
     private Status status;
     private eEnermyState eTypeMotion;
     private int MotionStep;
+    public Transform hpBarPos;
+    public HpBar bar;
      
     private void Awake()
     {
@@ -57,11 +59,15 @@ public class EnemyController : MonoBehaviour
         MotionStep = 3;
         status.Hp = status.MaxHp;
         rb2D.velocity = transform.right * speed;
+
         Ani.SetBool(AnimationHashList.IsWalkHash, false);
         Ani.SetBool(AnimationHashList.IsDeadHash, false);
         Ani.SetBool(AnimationHashList.IsAttackHash, false);
         StartCoroutine(EnemyState());
-        
+
+        bar = HpBarPool.GetInstacne.GetFromPool();
+        bar.transform.position = hpBarPos.position;
+        bar.ShowHp(status.Hp / status.MaxHp);
     }
 
     private IEnumerator EnemyState()
@@ -122,7 +128,10 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(bar != null)
+        {
+            bar.transform.position = hpBarPos.position;
+        }
     }
 
     public void FinishAttack()
@@ -140,12 +149,20 @@ public class EnemyController : MonoBehaviour
     {
         status.Hp -= value;
         Debug.Log("Enemy Hit " + value.ToString());
-        if(status.Hp <= 0)
+
+        if (bar != null)
         {
-            //dead
-            eTypeMotion = eEnermyState.Dead;
-            Ani.SetBool(AnimationHashList.IsDeadHash, true);
+            bar.ShowHp((float)status.Hp / (float)status.MaxHp);
+            if (status.Hp <= 0)
+            {
+                //dead
+                eTypeMotion = eEnermyState.Dead;
+                bar.gameObject.SetActive(false);
+                bar = null;
+                Ani.SetBool(AnimationHashList.IsDeadHash, true);
+            }
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
