@@ -6,7 +6,8 @@ public class HpBarPool : MonoBehaviour
 {
     [SerializeField]
     private Transform canvas;
-    private HpBar barPrefab;
+
+    public HpBar barPrefab;
     private List<HpBar> Pool;
 
     public static HpBarPool GetInstacne;
@@ -18,18 +19,26 @@ public class HpBarPool : MonoBehaviour
             GetInstacne = this;
             Pool = new List<HpBar>();
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     public HpBar GetFromPool()
     {
-        HpBar newlist = Instantiate(barPrefab);
+        for (int i = 0; i < Pool.Count; i++)
+        {
+            if (!Pool[i].gameObject.activeInHierarchy)
+            {
+                Pool[i].gameObject.SetActive(true);
+                return Pool[i];
+            }
+        }
 
+        HpBar newlist = Instantiate(barPrefab,canvas);
+        Pool.Add(newlist);
         return newlist;
     }
 }

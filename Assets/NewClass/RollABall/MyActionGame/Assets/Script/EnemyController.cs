@@ -31,35 +31,37 @@ public class EnemyController : MonoBehaviour
 {
     private Rigidbody2D rb2D;
     private Animator Ani;
+
     private float speed;
+
     private PlayerController player;
     private Status status;
     private eEnermyState eTypeMotion;
     private int MotionStep;
+
     public Transform hpBarPos;
-    public HpBar bar;
+    private HpBar bar;
      
     private void Awake()
     {
-        player = null;
-        eTypeMotion = eEnermyState.Idle;
         rb2D = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
-        speed = 1f;
         status = new Status(50, 10, 1);
     }
 
     void OnEnable()
     {
-
+        if(status.Hp <= 0)
+            status.Hp = status.MaxHp;
     }
 
     public void StartMove()
     {
         MotionStep = 3;
         status.Hp = status.MaxHp;
-        rb2D.velocity = transform.right * speed;
 
+        eTypeMotion = eEnermyState.Idle;
+        speed = 1f;
         Ani.SetBool(AnimationHashList.IsWalkHash, false);
         Ani.SetBool(AnimationHashList.IsDeadHash, false);
         Ani.SetBool(AnimationHashList.IsAttackHash, false);
@@ -138,11 +140,6 @@ public class EnemyController : MonoBehaviour
     {
         Ani.SetBool(AnimationHashList.IsAttackHash, false);
         player.Hit(1);
-    }
-
-    public void Dead()
-    {
-        this.gameObject.SetActive(false);
     }
 
     public void Hit(float value)

@@ -12,20 +12,8 @@ public class HpBar : MonoBehaviour
 
     private void OnEnable()
     {
-        hpBarObj.SetActive(true);
-        incomObj.SetActive(true);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        hpBarObj.SetActive(false);
+        incomObj.SetActive(false);
     }
 
     public void ShowHp(float value)

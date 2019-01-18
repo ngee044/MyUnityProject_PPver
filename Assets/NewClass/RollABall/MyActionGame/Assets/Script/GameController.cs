@@ -7,8 +7,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Transform LSP, RSP;
     private int EnemyIndexLength;
-    public const int MaxEnemyCount = 10;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +17,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator Spawn()
     {
-        WaitForSeconds oneSec = new WaitForSeconds(1);
-        int count = 0;
+        WaitForSeconds oneSec = new WaitForSeconds(3);
         while(true)
         {
             if (false)//(count > MaxEnemyCount)
@@ -29,7 +27,7 @@ public class GameController : MonoBehaviour
             else
             {
                 int SelectPos = Random.Range(0, 2);
-                int index = Random.Range(0, 2);
+                int index = Random.Range(0, EnemyIndexLength); // 0,2
                 EnemyController newEnemy = EnemyPool.GetInstance.GetFromPool(index);
                 if (SelectPos == 0) //Left
                 {
@@ -42,7 +40,6 @@ public class GameController : MonoBehaviour
                     newEnemy.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 newEnemy.StartMove();
-                count++;
             }
             yield return oneSec;
         }
