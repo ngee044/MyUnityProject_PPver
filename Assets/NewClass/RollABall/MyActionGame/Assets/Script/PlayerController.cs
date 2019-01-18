@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player Hit " + value.ToString());
         status.Hp -= value;
+        //UIController Send Event
     }
 
     public void AttackTarget(GameObject target)

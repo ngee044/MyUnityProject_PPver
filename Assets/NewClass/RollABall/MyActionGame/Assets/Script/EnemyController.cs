@@ -40,8 +40,11 @@ public class EnemyController : MonoBehaviour
     private int MotionStep;
 
     public Transform hpBarPos;
-    private HpBar bar;
-     
+
+    private float incomeAmount;
+    [SerializeField]
+    private float incomeWeight;
+    
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -55,10 +58,12 @@ public class EnemyController : MonoBehaviour
             status.Hp = status.MaxHp;
     }
 
-    public void StartMove()
+    public void StartMove(float inputIncome)
     {
         MotionStep = 3;
         status.Hp = status.MaxHp;
+
+        incomeAmount = inputIncome * incomeWeight;
 
         eTypeMotion = eEnermyState.Idle;
         speed = 1f;
@@ -66,10 +71,6 @@ public class EnemyController : MonoBehaviour
         Ani.SetBool(AnimationHashList.IsDeadHash, false);
         Ani.SetBool(AnimationHashList.IsAttackHash, false);
         StartCoroutine(EnemyState());
-
-        bar = HpBarPool.GetInstacne.GetFromPool();
-        bar.transform.position = hpBarPos.position;
-        bar.ShowHp(status.Hp / status.MaxHp);
     }
 
     private IEnumerator EnemyState()
@@ -130,10 +131,6 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(bar != null)
-        {
-            bar.transform.position = hpBarPos.position;
-        }
     }
 
     public void FinishAttack()
@@ -146,17 +143,21 @@ public class EnemyController : MonoBehaviour
     {
         status.Hp -= value;
         Debug.Log("Enemy Hit " + value.ToString());
-
-        if (bar != null)
+        
+        if (!Ani.GetBool(AnimationHashList.IsDeadHash))
         {
-            bar.ShowHp((float)status.Hp / (float)status.MaxHp);
+            HpBar bar = HpBarPool.GetInstacne.GetFromPool();
+            bar.transform.position = hpBarPos.position;
+            bar.ShowHp(status.Hp / status.MaxHp);
+
             if (status.Hp <= 0)
             {
                 //dead
+                bar.ShowIncom(incomeAmount);
                 eTypeMotion = eEnermyState.Dead;
-                bar.gameObject.SetActive(false);
-                bar = null;
                 Ani.SetBool(AnimationHashList.IsDeadHash, true);
+
+                GameController.GetInstance.AddMoney(incomeAmount);
             }
         }
 
@@ -175,7 +176,7 @@ public class EnemyController : MonoBehaviour
             MotionStep = 2;
             Ani.SetBool(AnimationHashList.IsWalkHash, false);
             Ani.SetBool(AnimationHashList.IsAttackHash, true);
-
+            
             //rb2D.velocity = Vector3.zero;
         }
     }

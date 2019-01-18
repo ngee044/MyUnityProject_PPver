@@ -224,3 +224,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpBarPos: {fileID: 973525761}
+  incomeWeight: 1.5

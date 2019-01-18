@@ -4,15 +4,49 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController GetInstance;
+
     [SerializeField]
     private Transform LSP, RSP;
     private int EnemyIndexLength;
-    
+
+    private float Money;
+    [SerializeField]
+    private float income, incomeWeight;
+    [SerializeField]
+    private int increaseIncomeRate;
+    private int spawnCount;
+
+    private void Awake()
+    {
+        if(GetInstance == null)
+        {
+            GetInstance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         EnemyIndexLength = EnemyPool.GetInstance.GetIndexCount();
         StartCoroutine(Spawn());
+        Money = 0;
+        spawnCount = 0;
+        UIController.GetInstance.ShowMoney(Money);
+    }
+
+    public void AddMoney(float value)
+    {
+        if(value > 0)
+        {
+            Money += value;
+        }
+        UIController.GetInstance.ShowMoney(Money);
+        Debug.Log(Money.ToString("F1"));
     }
 
     private IEnumerator Spawn()
@@ -39,13 +73,12 @@ public class GameController : MonoBehaviour
                     newEnemy.transform.position = RSP.position;
                     newEnemy.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                newEnemy.StartMove();
+                newEnemy.StartMove(income+incomeWeight *(spawnCount/increaseIncomeRate));
+                spawnCount++;
             }
             yield return oneSec;
         }
     }
-
-
 
     // Update is called once per frame
     void Update()
