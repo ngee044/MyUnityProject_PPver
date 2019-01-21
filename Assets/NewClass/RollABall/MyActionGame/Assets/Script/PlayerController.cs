@@ -44,6 +44,12 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player Hit " + value.ToString());
         status.Hp -= value;
+        UIController.GetInstance.ShowHp(value);
+        if (status.Hp <= 0 && Ani.GetBool(AnimationHashList.IsDeadHash) == false)
+        {
+            Ani.SetBool(AnimationHashList.IsDeadHash, true);
+            UIController.GetInstance.ShowResultWindow(429496);
+        }
         //UIController Send Event
     }
 
