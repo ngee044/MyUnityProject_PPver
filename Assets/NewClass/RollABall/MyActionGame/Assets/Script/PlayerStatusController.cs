@@ -29,10 +29,12 @@ public class PlayerStatusController : MonoBehaviour
     [SerializeField]
     private ListElement[] elements;
 
+    private float discoutRate;
 
     private void Awake()
     {
         infos = new stat[2];
+        discoutRate = 0;
 
         infos[0] = new stat();
         infos[0].iconId = 0;
@@ -50,13 +52,59 @@ public class PlayerStatusController : MonoBehaviour
 
         for(int i = 0; i < elements.Length; i++)
         {
-            elements[i].Init(icons[infos[i].iconId], 
+            elements[i].Init(icons[infos[i].iconId],
                              infos[i].name, 
                              infos[i].costCurrent.ToString("f1"),
-                             string.Format(infos[i].contents, infos[i].valueCurrent.ToString("f1")),"구매");
+                             string.Format(infos[i].contents, infos[i].valueCurrent.ToString("f1")),
+                             "구매",
+                             i,
+                             LevelUP);
         }
     }
 
+    public void ChangeDelegate()
+    {
+        elements[1].ChangeCallBack((int a) => { Debug.Log(a + "haha"); });
+    }
+
+    public void AddDiscout(float value)
+    {
+        discoutRate += value;
+        for(int i = 0; i < infos.Length; i++)
+        {
+            CalcInfo(i);
+            elements[i].Renew(infos[i].costCurrent.ToString("f1"),
+                string.Format(infos[i].contents, infos[i].valueCurrent.ToString("F1")), "구매");
+        }
+    }
+
+    public void CalcInfo(int id)
+    {
+        infos[id].costCurrent = infos[id].costBase * Math.Pow(infos[id].costWeight, infos[id].currentLv) * (1 - discoutRate);
+        infos[id].valueCurrent = infos[id].valueBase * Math.Pow(infos[id].valueWeight, infos[id].currentLv);
+    }
+
+    public void LevelUP(int id)
+    {
+        int maxlv = 5;
+
+        CalcInfo(id);
+        if(infos[id].currentLv < maxlv) // 5 is maxlv
+        {
+            infos[id].currentLv++;
+            CalcInfo(id);
+            PlayerData.GetInstance.AddValue1(5);
+            string purchaseStr = "";
+            if(infos[id].currentLv < maxlv)
+            {
+                purchaseStr = "구매";
+            }
+            else
+            {
+                purchaseStr = "완료";
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

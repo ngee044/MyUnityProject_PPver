@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class GameController : MonoBehaviour
         {
             Money += value;
         }
+        PlayerData.GetInstance.AddValue1(3.77f);
         UIController.GetInstance.ShowMoney(Money);
         Debug.Log(Money.ToString("F1"));
     }
@@ -78,6 +80,11 @@ public class GameController : MonoBehaviour
             }
             yield return oneSec;
         }
+    }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene(1);
     }
 
     // Update is called once per frame
